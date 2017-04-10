@@ -1,0 +1,161 @@
+\documentclass[12pt]{beamer}
+\usetheme{mabeamer}
+\begin{filecontents*}{library.bib}
+@Book{AdamsFournier2003,
+	Title                    = {Sobolev spaces},
+	Author                   = {Adams, Robert A and Fournier, John JF},
+	Publisher                = {Academic press},
+	Year                     = {2003},
+	Volume                   = {140},
+}
+@Article{AlexanderianPetraStadlerEtAl2016,
+	Title                    = {Mean-variance risk-averse optimal control of systems governed by PDEs with random parameter fields using quadratic approximations},
+	Author                   = {Alexanderian, Alen and Petra, Noemi and Stadler, Georg and Ghattas, Omar}
+}
+\end{filecontents*}
+\addbibresource{library}
+
+\title{On the mabeamer theme}
+\date{\today}%Beamer themes workshop\\[1em] \footnotesize \today
+\author[S. Wolfers]{Sören Wolfers}
+%\institute[KAUST]{\includegraphics[scale=.35]{KAUST}\vspace{1cm}}
+\begin{document}
+\frame{\maketitle}
+\matableofcontents
+\section{Main Goals}
+\begin{frame}{Making it lighter}
+The main goal of this project is to provide a theme that does not distract from the content.
+\begin{columns}
+	\begin{column}{0.5\textwidth}	
+		\begin{block}{What  was done}
+		\begin{itemize}
+		\item Got rid of navigational or structural baggage
+		\item Got rid of ugly itemizations
+		\begin{itemize}
+		\item First level: small squares
+		\item Second level: Triangles
+		\end{itemize}
+		\end{itemize}
+		\end{block}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{block}{What  needs to be done done}
+		\begin{itemize}
+			\item Uniform syntax for various blocks
+		\end{itemize}
+		\end{block}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Making it modern}
+\begin{itemize}
+	\item Using a modern font helps forgetting that these are Beamer slides
+
+	\item Not using {\color{yellow}the} {\color{blue}standard} {\color{red}colors} makes a more professional impression
+\end{itemize}
+
+\begin{exampleblock}{\centering Question}
+How do I automatically center the title of example blocks?
+\end{exampleblock}
+\end{frame}
+
+\section{Example usage}
+\subsection{Standard}
+\begin{frame}{Mathematics}
+\begin{theorem}
+There is an irrational number $r$ such that $r^r$ is rational.
+\end{theorem}
+\textit{In my opinion math such as $\sqrt{2}^{\sqrt{2}}$ or 
+ $$
+ {\sqrt{2}^{\sqrt{2}}}^{\sqrt{2}}=\exp(\sqrt{2}\log\sqrt{2}^{\sqrt{2}})=\exp(\log{2})=2
+ $$ looks better when typeset in a math font rather than the usual Beamer font}\hfill\qedsymbol
+
+\end{frame}
+\begin{frame}{Mathematics}
+\begin{itemize}
+	\item Important equations can be set in \emph{\texttt{equationblock}} environments:
+	\begin{equationblock}
+		5^2\approx 4!=\exp(\int x^4\exp(-x)\;dx)
+	\end{equationblock}	
+	\item Long equations are automatically fitted within equationblocks, and can be named:
+	\begin{equationblock}[Rademacher's formula]
+		p(n)=\frac{1}{\pi\sqrt{2}}\sum_{k=1}^{\infty}\sqrt{k}A_{k}(n)\frac{d}{dn}\left(\frac{1}{\sqrt{n-\frac{1}{24}}}\sinh\left[\frac{\pi}{k}\sqrt{\frac{2}{3}\left(n-\frac{1}{24}\right)}\right]\right)
+	\end{equationblock}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Alerts}
+\begin{alertblock}[Alerts]
+To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
+\begin{lstlisting}
+\begin{alertblock}[Alerts]
+To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
+...
+\end{alertblock}
+\end{lstlisting}
+
+\end{alertblock}
+\end{frame}
+\begin{frame}{Citations}
+One test citation \footcite{AdamsFournier2003} is not as good as two \footcite{AlexanderianPetraStadlerEtAl2016}. 
+Zero footnotes\footnote{which can be created using the \\footnote command} are better than one.
+\end{frame}
+\begin{frame}{Footnotes}
+	There is no point in counting footnotes across the presentation\footnote{Right?}
+\end{frame}
+	
+\begin{frame}{Figures}
+\begin{figure}
+\scalebox{0.6}{\input{Runge}}
+\caption{Runge's function and polynomial approximations. Observe that figures don't need numbering, just as Theorems.}
+\end{figure}
+
+\end{frame}
+\begin{frame}{Lists}
+\begin{enumerate}
+\item Eins
+\begin{enumerate}
+\item Einseins
+\begin{enumerate}
+\item Einseinseins
+\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\end{frame}
+\begin{frame}{Tables}
+\begin{table}[]
+\begin{tabularx}{\linewidth}{l>{\raggedright}X}
+		\toprule
+		\textbf{Option}			& \textbf{Auswirkung} \tabularnewline
+		\midrule
+		\texttt{noflama}		& Falls Sie die Schrift Flama nicht besitzen können Sie mit dieser Option auf die Schrift Arial umschalten. \tabularnewline
+		\texttt{noserifmath}		& Formeln werden ebenfalls serifenlos gesetzt. \tabularnewline
+		\texttt{nosectionpages} & Die Sektionseinleitungsseiten werden ausgeblendet.\tabularnewline
+		\bottomrule
+\end{tabularx}
+\caption{Not everyone understands German}
+\end{table}
+\end{frame}
+\subsection{Extra}
+\begin{frame}[fragile]{Additional commands}
+	\begin{itemize}
+		\item Call package  as
+		\begin{lstlisting}
+		\usepackage[displaysection]{mabeamertheme}
+		\end{lstlisting}
+		to display section name on each frame
+		\begin{alertblock}[\bigexclaim]
+			 \texttt{\\begin\{frame\}[fragile]} needed for \texttt{lstlisting}
+		\end{alertblock}
+		
+		\item For remarks, 	use \texttt{remarkblock}s
+		\begin{equationblock}[Pythagoras]
+			a^2+b^2=c^2
+		\end{equationblock}
+		\begin{remarkblock}
+			Extension to general triangles possible, but beyond scope of this presentation
+		\end{remarkblock}
+	\end{itemize}
+
+\end{frame}
+\end{document}
