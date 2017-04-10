@@ -9,6 +9,7 @@
 
 * Download file `beamerthememabeamer.sty` into your project directory
 * Put the command `\usetheme{mabeamer}` in your preamble
+* Check template/template.tex for example usage of the theme
 
 ### Who do I talk to? ###
 
