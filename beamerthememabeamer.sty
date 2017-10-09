@@ -111,7 +111,7 @@ backgroundcolor = \color{lightgray!50},breaklines=true
 \setbeamercolor{subsection in toc shaded}{fg = KAUSTTurqoise!50!white}
 \setbeamertemplate{section in toc shaded}[default][100]
 \setbeamertemplate{subsection in toc shaded}[default][100]
-\setbeamerfont{section in toc}{size=\LARGE}
+\setbeamerfont{section in toc}{size=\Large}
 \setbeamerfont{subsection in toc}{size=\normalsize\protect\centering}
 \setbeamerfont{section in toc shaded}{size=\Large}
 \setbeamerfont{subsection in toc shaded}{size=\normalsize\protect\centering}
@@ -119,10 +119,14 @@ backgroundcolor = \color{lightgray!50},breaklines=true
 \newcommand{\matableofcontents}[1][]{%
 \begingroup
 \setbeamercolor{background canvas}{bg=KAUSTTurqoise}
-	\begin{frame}[plain]
+	\begin{frame}[plain,noframenumbering]
 	{\color{white}Contents}
-	\centering
-	\vfill\usebeamerfont{title}{\tableofcontents[hideallsubsections,#1]}\vfill
+	\begin{center}
+	\vfill
+	\usebeamerfont{title}{\tableofcontents[%hideallsubsections,
+		#1]}
+\vfill
+\end{center}
 	\end{frame}
 	\endgroup%
 }
@@ -245,9 +249,10 @@ noparskip,
 \setbeamercolor{section in head/foot}{bg=KAUSTTurqoise}
 \renewcommand{\emph}[1]{{\color{KAUSTTurqoise}{\textit{#1}}}}
 
-\AtBeginSection[]{
-	\matableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded,hideallsubsections]
-}
+%\AtBeginSection[]{
+%	\matableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded]%,hideallsubsections]
+%}
+\newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
 \AtBeginSubsection[]{
 	\matableofcontents[currentsection,currentsubsection,hideothersubsections,sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
 }
