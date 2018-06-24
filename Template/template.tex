@@ -22,7 +22,10 @@
 \begin{document}
 \frame{\maketitle}
 \matableofcontents
+
 \section{Main Goals}
+\nosubsections
+
 \begin{frame}{Making it lighter}
 The main goal of this project is to provide a theme that does not distract from the content.
 \begin{columns}
@@ -33,15 +36,16 @@ The main goal of this project is to provide a theme that does not distract from 
 		\item Got rid of ugly itemizations
 		\begin{itemize}
 		\item First level: small squares
-		\item Second level: Triangles
+		\item Second level: smaller squares
 		\end{itemize}
 		\end{itemize}
 		\end{block}
 	\end{column}
 	\begin{column}{0.5\textwidth}
-		\begin{block}{What  needs to be done done}
+		\begin{block}{What  needs to be done}
 		\begin{itemize}
 			\item Uniform syntax for various blocks
+			\item Allow line breaks in \texttt{equationblock}s
 		\end{itemize}
 		\end{block}
 	\end{column}
@@ -52,11 +56,11 @@ The main goal of this project is to provide a theme that does not distract from 
 \begin{itemize}
 	\item Using a modern font helps forgetting that these are Beamer slides
 
-	\item Not using {\color{yellow}the} {\color{blue}standard} {\color{red}colors} makes a more professional impression
+	\item Not using {\color{yellow}standard} {\color{blue}beamer} {\color{red}colors} makes a more professional impression
 \end{itemize}
 
-\begin{exampleblock}{\centering Question}
-How do I automatically center the title of example blocks?
+\begin{exampleblock}{Sections without subsections}
+Sections without subsections are ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
 \end{exampleblock}
 \end{frame}
 
@@ -64,9 +68,9 @@ How do I automatically center the title of example blocks?
 \subsection{Standard}
 \begin{frame}{Mathematics}
 \begin{theorem}
-There is an irrational number $r$ such that $r^r$ is rational.
+There are irrational numbers $r,s$ such that $r^s$ is rational.
 \end{theorem}
-\textit{In my opinion math such as $\sqrt{2}^{\sqrt{2}}$ or 
+\textit{In my opinion, math such as $\sqrt{2}^{\sqrt{2}}$ or 
  $$
  {\sqrt{2}^{\sqrt{2}}}^{\sqrt{2}}=\exp(\sqrt{2}\log\sqrt{2}^{\sqrt{2}})=\exp(\log{2})=2
  $$ looks better when typeset in a math font rather than the usual Beamer font}\hfill\qedsymbol
@@ -76,7 +80,7 @@ There is an irrational number $r$ such that $r^r$ is rational.
 \begin{itemize}
 	\item Important equations can be set in \emph{\texttt{equationblock}} environments:
 	\begin{equationblock}
-		5^2\approx 4!=\exp(\int x^4\exp(-x)\;dx)
+		5^2\approx 4!=\exp\left(\int x^4\exp(-x)\;dx\right)
 	\end{equationblock}	
 	\item Long equations are automatically fitted within equationblocks, and can be named:
 	\begin{equationblock}[Rademacher's formula]
@@ -145,15 +149,16 @@ Zero footnotes\footnote{which can be created using the \\footnote command} are b
 		\end{lstlisting}
 		to display section name on each frame
 		\begin{alertblock}[\bigexclaim]
-			 \texttt{\\begin\{frame\}[fragile]} needed for \texttt{lstlisting}
+			Frames with \texttt{lstlisting} as in the gray box above requier 
+			 \texttt{\textbackslash begin\{frame\}[fragile]}
 		\end{alertblock}
 		
-		\item For remarks, 	use \texttt{remarkblock}s
+		\item For remarks, 	use \texttt{remarkblock}s:
 		\begin{equationblock}[Pythagoras]
 			a^2+b^2=c^2
 		\end{equationblock}
 		\begin{remarkblock}
-			Extension to general triangles possible, but beyond scope of this presentation
+			\centering Extension to general triangles are possible, but are beyond scope of this presentation
 		\end{remarkblock}
 	\end{itemize}
 

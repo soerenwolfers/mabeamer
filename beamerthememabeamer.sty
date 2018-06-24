@@ -66,7 +66,7 @@
 		\ifdef{\mabeamer@dispsec}{%
 			\raisebox{0.5cm}{\scriptsize\insertsectionhead}%
 		}{}
-	}{\insertframetitle}{}
+	}{\large \insertframetitle}{}
 }
 
 \newcommand\blfootnote[1]{%
@@ -158,7 +158,7 @@ backgroundcolor = \color{lightgray!50},breaklines=true
 \usetikzlibrary{arrows.meta}
 
 \setbeamertemplate{itemize item}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
-\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}%[triangle]
 \setbeamertemplate{itemize subsubitem}{\textendash }
 \setbeamertemplate{navigation symbols}{}
 \setbeamercolor{enumerate item}{fg=KAUSTText}
@@ -224,14 +224,25 @@ noparskip,
 }
 \usepackage{environ}
 \usepackage{ifthen}
+\usepackage{pbox}
 \NewEnviron{equationblock}[1][]{%
 	\begin{equationframe}[title=#1]\fiteq{\BODY}\end{equationframe}
 }
 \usepackage{scalerel}
+\usepackage{varwidth}
 \NewEnviron{remarkblock}[1][]{%
 	\ifthenelse{\equal{#1}{}}
-	{\scalebox{1}{$\scaleleftright{(}{\parbox{0.95\linewidth}{\centering \small \BODY}}{)}$}}
-	{\scalebox{1}{$\scaleleftright{(}{\parbox{0.92\linewidth}{\centering \textbf{#1}\\ \small \BODY}}{)}$}}%
+{\centering{$\scaleleftright{\text{(}}{
+			\begin{varwidth}{0.95\linewidth}
+			\small \BODY
+			\end{varwidth}
+		}{\text{)}}$}}
+	{\centering{$\scaleleftright{(}{
+	\begin{varwidth}{0.95\linewidth}
+\centering \textbf{#1}\\ \small \BODY
+\end{varwidth}
+}{)}$}}%
+
 }
 \renewenvironment{alertblock}[1][]{\begin{alertframe}[title=#1]}{\end{alertframe}}
 \setbeamerfont{title}{shape=\scshape}
