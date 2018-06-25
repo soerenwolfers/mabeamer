@@ -10,7 +10,12 @@
     	displaysection/.store in =\mabeamer@dispsec
 }
 \ProcessPgfPackageOptions{/mabeamer}
-
+%\usepackage{ifdraft}
+%\ifdraft{%
+	\usepackage[draft]{pdfcomment}
+%}{%
+%	\usepackage[final]{pdfcomment}
+%}
 \mode<presentation>
 \usepackage{xspace}
 \usepackage[utf8]{inputenc}
@@ -46,6 +51,18 @@
 \setbeamertemplate{caption}{\insertcaption}
 \setbeamertemplate{figures}[unnumbered]
 \setbeamertemplate{theorems}[normal font]
+
+
+
+
+\newcommand\Wider[2][3em]{%
+	\makebox[\linewidth][c]{%
+		\begin{minipage}{\dimexpr\textwidth+#1\relax}
+			\raggedright#2
+		\end{minipage}%
+	}%
+}
+
 
 \newcommand{\headerline}[3]{%
   \par\medskip\noindent
