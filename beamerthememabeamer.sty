@@ -7,7 +7,7 @@
 %\pdfmapfile{+sansmathaccent.map}
 \pgfkeys{
 	/mabeamer/.cd,
-    displaysection/.store in =\mabeamer@dispsec
+    	displaysection/.store in =\mabeamer@dispsec
 }
 \ProcessPgfPackageOptions{/mabeamer}
 
@@ -63,9 +63,10 @@
 }
 \newcommand{\key}[1]{\textbf{#1:}}
 \setbeamertemplate{frametitle}{
+\vspace{-0.1cm}
 	\headerline{%
 		\ifdef{\mabeamer@dispsec}{%
-			\raisebox{0.5cm}{\scriptsize\insertsectionhead}%
+			\raisebox{0.4cm}{\footnotesize\insertsectionhead}%
 		}{}
 	}{\large \insertframetitle}{}
 }
@@ -117,15 +118,19 @@ backgroundcolor = \color{lightgray!50},breaklines=true
 \setbeamerfont{section in toc shaded}{size=\Large}
 \setbeamerfont{subsection in toc shaded}{size=\normalsize\protect\centering}
 %\setbeamercolor{subsection in toc}{fg=white}
-\newcommand{\matableofcontents}[1][]{%
+\usepackage{twoopt}
+\newcommandtwoopt{\matableofcontents}[2][][]{%
+%\newcommand{\matableofcontents}[2][1=,2=]{%
 \begingroup
 \setbeamercolor{background canvas}{bg=KAUSTTurqoise}
 	\begin{frame}[plain,noframenumbering]
-	{\color{white}Contents}
+	\ifthenelse{\equal{#1}{}}
+	{\centering\color{white}Contents}
+	{}
 	\begin{center}
 	\vfill
 	\usebeamerfont{title}{\tableofcontents[%hideallsubsections,
-		#1]}
+		#2]}
 \vfill
 \end{center}
 	\end{frame}
@@ -187,15 +192,15 @@ backgroundcolor = \color{lightgray!50},breaklines=true
     \begin{beamercolorbox}[wd=0.5\paperwidth,right,dp=2ex]{page number}
      {\scriptsize  \color{BackgroundColor}{\insertframenumber}}%/\inserttotalframenumber
     \end{beamercolorbox}
-      \begin{beamercolorbox}[colsep=1.25pt]{lower separation line foot}
-      \end{beamercolorbox}
+     % \begin{beamercolorbox}[colsep=1.25pt]{lower separation line foot}
+     % \end{beamercolorbox}
   \fi%
 }
-\setbeamertemplate{headline}{% show slide number on all slides but the first
+\setbeamertemplate{headline}{%
 	\leavevmode
 	\ifnum\insertframenumber>1\relax%
-	\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}
-	\end{beamercolorbox}
+%	\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}
+%	\end{beamercolorbox}
 	\fi
 }
 
@@ -233,11 +238,11 @@ noparskip,
 \usepackage{varwidth}
 \NewEnviron{remarkblock}[1][]{%
 	\ifthenelse{\equal{#1}{}}
-{\centering{$\scaleleftright{\text{(}}{
+{\centering{$\scaleleftright{{(}}{
 			\begin{varwidth}{0.95\linewidth}
 			\small \BODY
 			\end{varwidth}
-		}{\text{)}}$}}
+		}{{)}}$}}
 	{\centering{$\scaleleftright{(}{
 	\begin{varwidth}{0.95\linewidth}
 \centering \textbf{#1}\\ \small \BODY
@@ -266,6 +271,6 @@ noparskip,
 %}
 \newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
 \AtBeginSubsection[]{
-	\matableofcontents[currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
+	\matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
 }
 \mode<all>
