@@ -7,7 +7,7 @@
 \pdfmapfile{+sansmathaccent.map}
 \pgfkeys{
 	/mabeamer/.cd,
-    	displaysection/.store in =\mabeamer@dispsec
+    displaysection/.store in =\mabeamer@dispsec
 }
 \ProcessPgfPackageOptions{/mabeamer}
 %\usepackage{ifdraft}
@@ -53,8 +53,6 @@
 \setbeamertemplate{theorems}[normal font]
 
 
-
-
 \newcommand\Wider[2][3em]{%
 	\makebox[\linewidth][c]{%
 		\begin{minipage}{\dimexpr\textwidth+#1\relax}
@@ -83,7 +81,7 @@
 \vspace{-0.1cm}
 	\headerline{%
 		\ifdef{\mabeamer@dispsec}{%
-			\raisebox{0.4cm}{\footnotesize\insertsectionhead}%
+			\raisebox{0.5cm}{\footnotesize\insertsectionhead}%
 		}{}
 	}{\large \insertframetitle}{}
 }

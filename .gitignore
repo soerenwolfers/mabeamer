@@ -4,3 +4,11 @@
 *.aux
 *.bib
 *.swp
+*.bbl
+*.blg
+*.nav
+*.pdf
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
