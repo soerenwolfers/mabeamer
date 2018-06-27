@@ -20,8 +20,7 @@
 \author[S. Wolfers]{Sören Wolfers}
 %\institute[KAUST]{\includegraphics[scale=.35]{KAUST}\vspace{1cm}}
 \begin{document}
-\frame{\maketitle}
-\matableofcontents
+\matitle
 
 \section{Main Goals}
 \nosubsections
@@ -45,7 +44,8 @@ The main goal of this project is to provide a theme that does not distract from 
 		\begin{block}{What  needs to be done}
 		\begin{itemize}
 			\item Uniform syntax for various blocks
-			\item Allow line breaks in \texttt{equationblock}s
+			\item Allow line breaks in \texttt{equationblock}s; oviate need for \texttt{equationframe}
+			\item Obviate need for \texttt{\textbackslash nosubsections} 
 		\end{itemize}
 		\end{block}
 	\end{column}
@@ -59,9 +59,9 @@ The main goal of this project is to provide a theme that does not distract from 
 	\item Not using {\color{yellow}standard} {\color{blue}beamer} {\color{red}colors} makes a more professional impression
 \end{itemize}
 
-\begin{exampleblock}{Sections without subsections}
-Sections without subsections are ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
-\end{exampleblock}
+\begin{block}{Sections without subsections}
+Sections without subsections are currently ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
+\end{block}
 \end{frame}
 
 \section{Example usage}
@@ -78,26 +78,25 @@ There are irrational numbers $r,s$ such that $r^s$ is rational.
 \end{frame}
 \begin{frame}{Mathematics}
 \begin{itemize}
-	\item Important equations can be set in \emph{\texttt{equationblock}} environments:
+	\item Important equations can be set in \texttt{equationblock} environments:
 	\begin{equationblock}
 		5^2\approx 4!=\exp\left(\int x^4\exp(-x)\;dx\right)
 	\end{equationblock}	
-	\item Long equations are automatically fitted within equationblocks, and can be named:
+	\item Long equations are automatically fitted within equationblocks, and can be named; or they can be linebroken and put into \texttt{equationframe}
 	\begin{equationblock}[Rademacher's formula]
 		p(n)=\frac{1}{\pi\sqrt{2}}\sum_{k=1}^{\infty}\sqrt{k}A_{k}(n)\frac{d}{dn}\left(\frac{1}{\sqrt{n-\frac{1}{24}}}\sinh\left[\frac{\pi}{k}\sqrt{\frac{2}{3}\left(n-\frac{1}{24}\right)}\right]\right)
 	\end{equationblock}
 \end{itemize}
 \end{frame}
-\begin{frame}[fragile]{Alerts}
-\begin{alertblock}[Alerts]
-To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
+\begin{frame}[fragile]{Alerts and Listings}
+\begin{alertblock}[Alarm, Alarm!]
+To alert, use \texttt{alertblocks}. For code snippets use \texttt{lstlisting}
 \begin{lstlisting}
 \begin{alertblock}[Alerts]
 To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
 ...
 \end{alertblock}
 \end{lstlisting}
-
 \end{alertblock}
 \end{frame}
 \begin{frame}{Citations}

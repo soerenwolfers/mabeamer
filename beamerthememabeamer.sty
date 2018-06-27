@@ -1,4 +1,3 @@
-%%%%%%%%%%%% PROCESS OPTIONS %%%%%%%%%%%%%%%%%%
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[USenglish]{babel}
@@ -14,7 +13,11 @@
 \usepackage{sansmathaccent}
 \pdfmapfile{+sansmathaccent.map}
 \mode<presentation>
-%%%%%%%%%%%%%%%%%%%%%%% FLEXIBLE PART OF COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[default,osfigures,scale=0.8]{opensans}
+%\usepackage[default]{gillius}
+\usefonttheme{professionalfonts}
+%%%%%%%%%%%%%%%%%%%%%%% FLEXIBLE PART OF COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%
 %% General definitions
 \definecolor{Charcoal}{HTML}{4D4944}
 \definecolor{Olive}{HTML}{927100}
@@ -22,19 +25,20 @@
 \definecolor{Wine}{HTML}{A51D00}
 \definecolor{DarkBlue}{HTML}{012D5F}
 \definecolor{OxfordBlue}{HTML}{002147}
-\definecolor{Turqoise}{HTML}{5284C4}
-\definecolor{FlashTurqoise}{HTML}{03C2CA}
+\definecolor{LightBlue}{HTML}{5284C4}
+\definecolor{Turqoise}{HTML}{03C2CA}
+\definecolor{Brown}{HTML}{786a54}
 %% CHANGE HERE TO CHANGE THEME
-% Basically if main color is dark: make all three below that color; if main color is light: make first two that color and third dark
+%% Basically, if main color is dark: make all three below that color; if main color is light: make first two that color and third dark
 \colorlet{mamain}{OxfordBlue}%ToC background; Title slide title; blocks
-\colorlet{mastructuretext}{OxfordBlue}%{Charcoal}%Used for structural text
-\colorlet{masecondstructuretext}{OxfordBlue}%{786a54}{Charcoal}%Used for partsof title slide only a.t.m.
+\colorlet{mastructuretext}{OxfordBlue}%Used for structural text
+\colorlet{masecondstructuretext}{OxfordBlue}%Used for partsof title slide only a.t.m.
 \colorlet{mafirstemph}{red} % Strongest emphasis
 \colorlet{masecondemph}{blue} % Second strongest emphasis
 \colorlet{mathirdemph}{Olive} % ... 
 \colorlet{matext}{black}
 \colorlet{maitems}{Charcoal}
-%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3]{biblatex}
 \usepackage{subfig}
 \usepackage{layout}
@@ -77,11 +81,7 @@
 	xrightmargin=0.5em,
 	backgroundcolor = \color{lightgray!50},breaklines=true
 }
-%%%%%%%% FONTS %%%%%%%%%%%%%%%%
-\usepackage[default,osfigures,scale=0.95]{opensans}
-\usepackage[default]{gillius}
-\usefonttheme{professionalfonts}
-%%%%%%% PUBLIC COMMANDS %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PUBLIC COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\fourthemph}[1]{{\color{mafourthemph}\textit{#1}}}%used for emph in structural text color
 \newcommand{\thirdemph}[1]{{\color{mathirdemph}\textit{#1}}}
 \newcommand{\secondemph}[1]{{\color{masecondemph}\textit{#1}}}
@@ -150,7 +150,7 @@
 		}%
 	}%
 }
-%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamerfont{caption}{size=\scriptsize}
 \setbeamertemplate{caption}{\insertcaption}
 \setbeamertemplate{figures}[unnumbered]
@@ -195,10 +195,7 @@
 \setbeamerfont{block title}{size=\small,shape=\scshape\bfseries\centering}
 \usepackage{chngcntr}
 \counterwithin*{footnote}{framenumber}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%FIXED PART OF COLOR SCHEME%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIXED PART OF COLOR SCHEME%%%%%%%%%%%%%%%%%%%%%%%%
 \colorlet{mafourthemph}{mastructuretext}
 \colorlet{red}{mafirstemph}
 \colorlet{blue}{masecondemph}
@@ -237,7 +234,7 @@
 }
 \setbeamertemplate{headline}{%\leavevmode\ifnum\insertframenumber>1\relax\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}\end{beamercolorbox}\fi
 }
-%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginSubsection[]{
 	\matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
 }
@@ -248,7 +245,7 @@
 %%%%%%%%% BLOCKS %%%%%%%%%%
 \newtcolorbox{equationframe}[1][]{%Can be used for multiline, unlike equationblock
 	standard jigsaw,opacityback=0,%sharp corners,
-    fonttitle=\scshape\bfseries\scriptsize\centering,
+    fonttitle=\scshape\bfseries\footnotesize\centering,
     halign=flush center,
 	left=.5em,right=.5em,top=0ex,bottom=0ex,
 	ams nodisplayskip, ams align*,#1
@@ -260,26 +257,21 @@
 	left=.5em,right=.5em,top=0ex,bottom=0ex,#1
 }
 \newtcolorbox{alertframe}[1][]{
-noparskip,
+	noparskip,
     colback=white, %background color of the box
     colframe=mafirstemph, %color of frame and title background
     coltext=mafirstemph, %color of body text
     coltitle=white, %color of title text 
     fonttitle=\scshape\bfseries\small\centering,
      sharp corners,
-    %alerted/.style={coltitle=red, 
-    %                 colframe=gray!40},
-    %example/.style={coltitle=black, 
-    %                 colframe=green!20,             
-    %                 colback=green!5},#1
+    #1
 }
 \usepackage{environ}
 \usepackage{ifthen}
 \usepackage{pbox}
 \NewEnviron{equationblock}[1][]{%
-	\begin{equationframe}[title=#1]\fiteq{\BODY}\end{equationframe}
+	\begin{equationframe}[title={#1}]\fiteq{\BODY}\end{equationframe}
 }
-
 \usepackage{scalerel}
 \usepackage{varwidth}
 \NewEnviron{remarkblock}[1][]{%
@@ -306,11 +298,10 @@ noparskip,
 		}%
 	}%
 }
-\NewEnviron{neutralblock}[1][]{\begin{neutralframe}[title=#1]\BODY\end{neutralframe}}
-\renewenvironment{alertblock}[1][]{\begin{alertframe}[title=#1]}{\end{alertframe}}
+\NewEnviron{neutralblock}[1][]{\begin{neutralframe}[title={#1}]\BODY\end{neutralframe}}
+\renewenvironment{alertblock}[1][]{\begin{alertframe}[title={#1}]}{\end{alertframe}}
 \mode<all>
-
-%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{ifdraft}
 %\ifdraft{%
 
@@ -321,4 +312,3 @@ noparskip,
 %% footline
 % \begin{beamercolorbox}[colsep=1.25pt]{lower separation line foot}
 % \end{beamercolorbox}
-
