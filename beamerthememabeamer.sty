@@ -1,58 +1,99 @@
-%% PROCESS OPTIONS
+%%%%%%%%%%%% PROCESS OPTIONS %%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[USenglish]{babel}
 \usepackage{pgfkeys}
 \usepackage{pgfopts}
-\usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3]{biblatex}
 \RequirePackage{etoolbox}
-\usepackage{sansmathaccent}
-\pdfmapfile{+sansmathaccent.map}
 \pgfkeys{
 	/mabeamer/.cd,
-    displaysection/.store in =\mabeamer@dispsec
+    displaysection/.store in =\mabeamer@dispsec,
+    displaycomments/.store in =\mabeamer@dispcomments
 }
 \ProcessPgfPackageOptions{/mabeamer}
-%\usepackage{ifdraft}
-%\ifdraft{%
-	\usepackage[draft]{pdfcomment}
-%}{%
-%	\usepackage[final]{pdfcomment}
-%}
+\usepackage{sansmathaccent}
+\pdfmapfile{+sansmathaccent.map}
 \mode<presentation>
-\usepackage{xspace}
-\usepackage[utf8]{inputenc}
-\usepackage[default,osfigures,scale=0.95]{opensans}
-\usepackage[default]{gillius}
-\usepackage[T1]{fontenc}
-\usefonttheme{professionalfonts}
-
-%% TEST
+%%%%%%%%%%%%%%%%%%%%%%% FLEXIBLE PART OF COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% General definitions
+\definecolor{Charcoal}{HTML}{4D4944}
+\definecolor{Olive}{HTML}{927100}
+\definecolor{Orange}{HTML}{FF995D}%{FF8700}
+\definecolor{Wine}{HTML}{A51D00}
+\definecolor{DarkBlue}{HTML}{012D5F}
+\definecolor{OxfordBlue}{HTML}{002147}
+\definecolor{Turqoise}{HTML}{5284C4}
+\definecolor{FlashTurqoise}{HTML}{03C2CA}
+%% CHANGE HERE TO CHANGE THEME
+% Basically if main color is dark: make all three below that color; if main color is light: make first two that color and third dark
+\colorlet{mamain}{OxfordBlue}%ToC background; Title slide title; blocks
+\colorlet{mastructuretext}{OxfordBlue}%{Charcoal}%Used for structural text
+\colorlet{masecondstructuretext}{OxfordBlue}%{786a54}{Charcoal}%Used for partsof title slide only a.t.m.
+\colorlet{mafirstemph}{red} % Strongest emphasis
+\colorlet{masecondemph}{blue} % Second strongest emphasis
+\colorlet{mathirdemph}{Olive} % ... 
+\colorlet{matext}{black}
+\colorlet{maitems}{Charcoal}
+%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3]{biblatex}
 \usepackage{subfig}
 \usepackage{layout}
-%%
 \usepackage{xparse}
-\usepackage[USenglish]{babel}
-\usepackage{amssymb}
-\usepackage{amsfonts}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{epstopdf}
 \usepackage[many]{tcolorbox}
 \tcbuselibrary{breakable,skins}
-\newcommand\fiteq[1]{%
-  \sbox{\mybox}{$\displaystyle#1$}%
-  \ifdim\wd\mybox>1\textwidth\resizebox{1\textwidth}{!}{\usebox{\mybox}}%
-  \else\usebox{\mybox}\fi%
-}
-\newsavebox{\mybox}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{calc}
 \usepackage{tabularx,ragged2e}
 \usepackage{booktabs}
-\setbeamerfont{caption}{size=\scriptsize}
-\setbeamertemplate{caption}{\insertcaption}
-\setbeamertemplate{figures}[unnumbered]
-\setbeamertemplate{theorems}[normal font]
-
-
+\ifdef{\mabeamer@dispcomments}{%
+	\usepackage[draft]{pdfcomment}
+}{%
+	\usepackage[final]{pdfcomment}
+}
+\usepackage{calc}
+\usepackage[geometry]{ifsym}
+\usepackage{listings}
+\lstset{ %
+	language=[LaTeX]TeX,
+	basicstyle=\normalsize\ttfamily\color{black},
+	keywordstyle=,
+	numbers=left,
+	numberstyle=\scriptsize\ttfamily\color{black},
+	stepnumber=1,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	breaklines=true,
+	frame=tb,
+	framerule=0.5pt,
+	tabsize=4,
+	framexleftmargin=0.5em,
+	framexrightmargin=0.5em,%0.5em
+	xleftmargin=0.5em,
+	xrightmargin=0.5em,
+	backgroundcolor = \color{lightgray!50},breaklines=true
+}
+%%%%%%%% FONTS %%%%%%%%%%%%%%%%
+\usepackage[default,osfigures,scale=0.95]{opensans}
+\usepackage[default]{gillius}
+\usefonttheme{professionalfonts}
+%%%%%%% PUBLIC COMMANDS %%%%%%%%%%%%%%%%
+\newcommand{\fourthemph}[1]{{\color{mafourthemph}\textit{#1}}}%used for emph in structural text color
+\newcommand{\thirdemph}[1]{{\color{mathirdemph}\textit{#1}}}
+\newcommand{\secondemph}[1]{{\color{masecondemph}\textit{#1}}}
+\newcommand{\firstemph}[1]{{\color{mafirstemph}\textit{#1}}}
+\renewcommand{\emph}[1]{{\color{mafirstemph}\textit{#1}}}
+\newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
+\newcommand\fiteq[1]{%
+	\sbox{\mybox}{$\displaystyle#1$}%
+	\ifdim\wd\mybox>1\textwidth\resizebox{1\textwidth}{!}{\usebox{\mybox}}%
+	\else\usebox{\mybox}\fi%
+}
+\newsavebox{\mybox}
 \newcommand\Wider[2][3em]{%
 	\makebox[\linewidth][c]{%
 		\begin{minipage}{\dimexpr\textwidth+#1\relax}
@@ -60,188 +101,177 @@
 		\end{minipage}%
 	}%
 }
-
-
-\newcommand{\headerline}[3]{%
-  \par\medskip\noindent
-  \makebox[0pt][l]{#1}% Up left, small
-  \makebox[\textwidth][c]{#2}% middle 
-  \makebox[0pt][r]{#3}\par\medskip% right
-} 
-\usepackage{calc}
-\usepackage[geometry]{ifsym}
 \newcommand{\bigexclaim}{
 	\raisebox{-0.075em}{\scalebox{1.05}{\BigTriangleUp}}\hspace{-0.4em}\llap{\small\textbf{!}}\hspace{0.4em}
 }
-\newcommand{\summarize}{
-	\raisebox{0.2em}{\tikz{\draw[-{Latex[length=2.5mm, width=1.5mm]}] (0,0)--(0.25,0);}}
-}
 \newcommand{\key}[1]{\textbf{#1:}}
-\setbeamertemplate{frametitle}{
-\vspace{-0.1cm}
-	\headerline{%
-		\ifdef{\mabeamer@dispsec}{%
-			\raisebox{0.5cm}{\footnotesize\insertsectionhead}%
-		}{}
-	}{\large \insertframetitle}{}
-}
-
 \newcommand\blfootnote[1]{%
 	\begingroup
 	\renewcommand\thefootnote{}\footnote{#1}%
 	\addtocounter{footnote}{-1}%
 	\endgroup
 }
-
-\usepackage{chngcntr}
-\counterwithin*{footnote}{framenumber}
-
-
-\usepackage{listings}
-\lstset{ %
-language=[LaTeX]TeX,
-basicstyle=\normalsize\ttfamily\color{black},
-keywordstyle=,
-numbers=left,
-numberstyle=\scriptsize\ttfamily\color{black},
-stepnumber=1,
-showspaces=false,
-showstringspaces=false,
-showtabs=false,
-breaklines=true,
-frame=tb,
-framerule=0.5pt,
-tabsize=4,
-framexleftmargin=0.5em,
-framexrightmargin=0.5em,%0.5em
-xleftmargin=0.5em,
-xrightmargin=0.5em,
-backgroundcolor = \color{lightgray!50},breaklines=true
-}
-%
-\useoutertheme[shadow]{miniframes}
-\setbeamertemplate{section in toc}[sections]
-\setbeamertemplate{subsection in toc}{\centering \normalsize \inserttocsubsection}
-\setbeamercolor{section in toc}{fg=white}
-\setbeamercolor{subsection in toc}{fg=white}
-\setbeamercolor{section in toc shaded}{fg=KAUSTTurqoise!50!white}
-\setbeamercolor{subsection in toc shaded}{fg = KAUSTTurqoise!50!white}
-\setbeamertemplate{section in toc shaded}[default][100]
-\setbeamertemplate{subsection in toc shaded}[default][100]
-\setbeamerfont{section in toc}{size=\Large}
-\setbeamerfont{subsection in toc}{size=\normalsize\protect\centering}
-\setbeamerfont{section in toc shaded}{size=\Large}
-\setbeamerfont{subsection in toc shaded}{size=\normalsize\protect\centering}
-%\setbeamercolor{subsection in toc}{fg=white}
 \usepackage{twoopt}
 \newcommandtwoopt{\matableofcontents}[2][][]{%
-%\newcommand{\matableofcontents}[2][1=,2=]{%
-\begingroup
-\setbeamercolor{background canvas}{bg=KAUSTTurqoise}
+	\begingroup
+	\setbeamercolor{background canvas}{bg=mamain}
 	\begin{frame}[plain,noframenumbering]
-	\ifthenelse{\equal{#1}{}}
-	{\centering\color{white}Contents}
-	{}
-	\begin{center}
-	\vfill
-	\usebeamerfont{title}{\tableofcontents[%hideallsubsections,
-		#2]}
-\vfill
-\end{center}
+		\ifthenelse{\equal{#1}{}}{%
+			\centering\color{white}Contents%
+		}
+		{%
+		}
+		\begin{center}
+			\vfill
+			\usebeamerfont{title}{\tableofcontents[%hideallsubsections,
+				#2]}
+			\vfill
+		\end{center}
 	\end{frame}
 	\endgroup%
 }
-% Define some colors:
-\definecolor{DarkCharcoal}{HTML}{4D4944}
-\definecolor{KAUSTTurqoise}{HTML}{5284C4}%{00A6AA}%{3caaaa}%{5284C4}%{00A6AA}
-\definecolor{KAUSTGreen}{HTML}{c1d115}%{CDCE00}
-\definecolor{KAUSTOrange}{HTML}{F08314}%{F18F00}
-\definecolor{KAUSTYellow}{HTML}{F0B500}
-\definecolor{KAUSTShadedYellow}{HTML}{643C00}
-\colorlet{Charcoal}{DarkCharcoal!50!white}
-\colorlet{AlertColor}{red}
-\definecolor{KAUSTBlue}{HTML}{5284C4}
-\definecolor{KAUSTShadedBlue}{HTML}{003B75}
-\definecolor{KAUSTShadedTurqoise}{HTML}{004C59}
-\definecolor{KAUSTShadedOrange}{HTML}{804900}
-\definecolor{KAUSTBrown}{HTML}{786a54}
-\colorlet{KAUSTText}{black}%{KAUSTBrown!50!black}
-\colorlet{BackgroundColor}{KAUSTTurqoise}
-
-%% MATH
-\setlength{\abovedisplayskip}{0pt}
-\setlength{\belowdisplayskip}{0pt}
-\setlength{\abovedisplayshortskip}{0pt}
-\setlength{\belowdisplayshortskip}{0pt} 
-
-%% Apply the colors
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta}
-
+\newcommand{\matitle}{%
+	\begin{frame}[plain,noframenumbering]{}
+	\maketitle
+	\end{frame}
+	\matableofcontents
+}
+\usepackage{suffix}
+\WithSuffix\newcommand\matitle*{%
+	\begin{frame}[plain,noframenumbering]{}
+	\maketitle
+	\end{frame}
+}
+\newcommand{\summarize}{%
+	{%
+		\color{maitems}
+		\raisebox{0.2em}{%
+			\tikz{\draw[-{Latex[length=2.5mm, width=1.5mm]}] (0,0)--(0.25,0);}
+		}%
+	}%
+}
+%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%
+\setbeamerfont{caption}{size=\scriptsize}
+\setbeamertemplate{caption}{\insertcaption}
+\setbeamertemplate{figures}[unnumbered]
+\setbeamertemplate{theorems}[normal font]
+\setbeamertemplate{frametitle}{
+	\vspace{-0.1cm}
+	\par\medskip\noindent
+	\makebox[0pt][l]{%
+		\ifdef{\mabeamer@dispsec}{%
+			\raisebox{0.5cm}{\footnotesize\insertsectionhead}%
+		}{%
+		}
+	}% Up left, small
+	\makebox[\textwidth][c]{%
+		\large\insertframetitle
+	}% middle 
+ 	\makebox[0pt][r]{%
+ 		
+ 	}%right
+ 	\par\medskip
+}
+\useoutertheme[shadow]{miniframes}
+\setbeamertemplate{section in toc}[sections]
+\setbeamertemplate{subsection in toc}{\centering \normalsize \inserttocsubsection}
 \setbeamertemplate{itemize item}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}%[triangle]
 \setbeamertemplate{itemize subsubitem}{\textendash }
 \setbeamertemplate{navigation symbols}{}
-\setbeamercolor{enumerate item}{fg=KAUSTText}
-\setbeamercolor{enumerate subitem}{fg=KAUSTText}
-\setbeamercolor{enumerate subsubitem}{fg=KAUSTText}
-%%
-\setbeamercolor{title}{fg=KAUSTTurqoise}
-\setbeamercolor{author}{fg=KAUSTBrown}
-\setbeamercolor{date}{fg=KAUSTBrown}  
-\setbeamercolor{frametitle}{fg=KAUSTTurqoise}
+\setbeamertemplate{section in toc shaded}[default][100]
+\setbeamertemplate{subsection in toc shaded}[default][100]
+\setbeamertemplate{navigation symbols}{} % hide bottom nav buttons
+\setbeamerfont{section in toc}{size=\Large}
+\setbeamerfont{subsection in toc}{size=\normalsize\protect\centering}
+\setbeamerfont{section in toc shaded}{size=\Large}
+\setbeamerfont{subsection in toc shaded}{size=\normalsize\protect\centering}
+\setbeamerfont{title}{shape=\scshape,size=\large}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{author}{size=\footnotesize}
+\setbeamerfont{title like}{shape=\scshape}
+\setbeamerfont{frametitle}{shape=\scshape}
+\setbeamerfont{section in head/foot}{shape=\scshape,size=\tiny}
+\setbeamerfont{block title}{size=\small,shape=\scshape\bfseries\centering}
+\usepackage{chngcntr}
+\counterwithin*{footnote}{framenumber}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%FIXED PART OF COLOR SCHEME%%%%%%%%%%%%%%%%%
+\colorlet{mafourthemph}{mastructuretext}
+\colorlet{red}{mafirstemph}
+\colorlet{blue}{masecondemph}
+\setbeamercolor{enumerate item}{fg=matext}
+\setbeamercolor{enumerate subitem}{fg=matext}
+\setbeamercolor{enumerate subsubitem}{fg=matext}
+\setbeamercolor{lower separation line head}{bg=mamain} 
+\setbeamercolor{lower separation line foot}{bg=mamain} 
+\setbeamercolor{normal text}{fg=matext,bg=white} 
+\setbeamercolor{alerted text}{fg=mafirstemph} 
+\setbeamercolor{structure}{fg=mastructuretext} 
+\setbeamercolor{section in head/foot}{bg=mastructuretext}
+\setbeamercolor{title}{fg=mamain}
+\setbeamercolor{author}{fg=masecondstructuretext}
+\setbeamercolor{date}{fg=masecondstructuretext}  
+\setbeamercolor{frametitle}{fg=mastructuretext}
 \setbeamercolor{itemize item}{fg=Charcoal}
 \setbeamercolor{itemize subitem}{fg=Charcoal}
-%Normal blocks
-\setbeamercolor{block title}{fg=KAUSTTurqoise!20!white,bg=KAUSTTurqoise}
-\setbeamercolor{block body}{fg=black,bg=KAUSTTurqoise!20!white}
-%alert blocks
-\setbeamercolor{block title alerted}{fg=KAUSTYellow!25!white,bg=KAUSTOrange}
-\setbeamercolor{block body alerted}{fg=AlertColor,bg=KAUSTYellow!25!white}
-%example blocks
-\setbeamercolor{block title example}{fg=KAUSTYellow!25!white,bg=KAUSTOrange}
-\setbeamercolor{block body example}{fg=KAUSTShadedYellow!120!white,bg=KAUSTYellow!25!white}
+\setbeamercolor{block title}{fg=white,bg=mamain}
+\setbeamercolor{block body}{fg=mamain!10!black,bg=mamain!10!white}
+\setbeamercolor{section in toc}{fg=white}
+\setbeamercolor{subsection in toc}{fg=white}
+\setbeamercolor{section in toc shaded}{fg=mamain!50!white}
+\setbeamercolor{subsection in toc shaded}{fg = mamain!50!white}
+\renewenvironment{exampleblock}[1][]{\DONTUSETHIS}{}
 \setbeamertemplate{footline}{% show slide number on all slides but the first
-  \ifnum\c@framenumber=1
-  \else
-    \begin{beamercolorbox}[wd=0.5\paperwidth,right,dp=2ex]{page number}
-     {\scriptsize  \color{BackgroundColor}{\insertframenumber}}%/\inserttotalframenumber
-    \end{beamercolorbox}
-     % \begin{beamercolorbox}[colsep=1.25pt]{lower separation line foot}
-     % \end{beamercolorbox}
-  \fi%
+	%\ifnum\c@framenumber=1
+	%\else
+	\hfill%
+	\begin{beamercolorbox}[wd=0.5\paperwidth,right,dp=2ex]{page number}
+		{%
+	     	\scriptsize \color{mastructuretext}{\insertframenumber}\hspace*{0.2cm}
+   		}%/\inserttotalframenumber
+	\end{beamercolorbox}
+	%\fi%
 }
-\setbeamertemplate{headline}{%
-	\leavevmode
-	\ifnum\insertframenumber>1\relax%
-%	\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}
-%	\end{beamercolorbox}
-	\fi
+\setbeamertemplate{headline}{%\leavevmode\ifnum\insertframenumber>1\relax\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}\end{beamercolorbox}\fi
 }
-
-\usepackage{amsmath,amsfonts,amssymb,amsthm}
+%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%
+\AtBeginSubsection[]{
+	\matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
+}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 \tcbuselibrary{theorems}
 \tcbset{noparskip}
-\newtcolorbox{equationframe}[1][]{
+%%%%%%%%% BLOCKS %%%%%%%%%%
+\newtcolorbox{equationframe}[1][]{%Can be used for multiline, unlike equationblock
 	standard jigsaw,opacityback=0,%sharp corners,
     fonttitle=\scshape\bfseries\scriptsize\centering,
     halign=flush center,
 	left=.5em,right=.5em,top=0ex,bottom=0ex,
 	ams nodisplayskip, ams align*,#1
 }
+\newtcolorbox{neutralframe}[1][]{
+	standard jigsaw,opacityback=0,sharp corners,
+	fonttitle=\scshape\bfseries\small\centering,
+	%halign=flush center,
+	left=.5em,right=.5em,top=0ex,bottom=0ex,#1
+}
 \newtcolorbox{alertframe}[1][]{
 noparskip,
     colback=white, %background color of the box
-    colframe=red, %color of frame and title background
-    coltext=red, %color of body text
+    colframe=mafirstemph, %color of frame and title background
+    coltext=mafirstemph, %color of body text
     coltitle=white, %color of title text 
     fonttitle=\scshape\bfseries\small\centering,
      sharp corners,
-    alerted/.style={coltitle=red, 
-                     colframe=gray!40},
-    example/.style={coltitle=black, 
-                     colframe=green!20,             
-                     colback=green!5},#1
+    %alerted/.style={coltitle=red, 
+    %                 colframe=gray!40},
+    %example/.style={coltitle=black, 
+    %                 colframe=green!20,             
+    %                 colback=green!5},#1
 }
 \usepackage{environ}
 \usepackage{ifthen}
@@ -249,43 +279,46 @@ noparskip,
 \NewEnviron{equationblock}[1][]{%
 	\begin{equationframe}[title=#1]\fiteq{\BODY}\end{equationframe}
 }
+
 \usepackage{scalerel}
 \usepackage{varwidth}
 \NewEnviron{remarkblock}[1][]{%
-	\ifthenelse{\equal{#1}{}}
-{\centering{$\scaleleftright{{(}}{
-			\begin{varwidth}{0.95\linewidth}
-			\small \BODY
-			\end{varwidth}
-		}{{)}}$}}
-	{\centering{$\scaleleftright{(}{
-	\begin{varwidth}{0.95\linewidth}
-\centering \textbf{#1}\\ \small \BODY
-\end{varwidth}
-}{)}$}}%
-
+	\ifthenelse{\equal{#1}{}}{%
+		\makebox[\linewidth]{%
+			\centering{%
+				$\scaleleftright{{(}}{%
+					\begin{varwidth}{0.95\linewidth}
+					\small \BODY
+					\end{varwidth}
+				}{{)}}$%
+			}%
+		}%
+	}{%
+		\makebox[\linewidth]{%
+			\centering{%
+				$\scaleleftright{(}{%
+					\begin{varwidth}{0.95\linewidth}
+					\centering \textbf{#1}\\ 
+					\small \BODY
+					\end{varwidth}
+				}{)}$%
+			}%
+		}%
+	}%
 }
+\NewEnviron{neutralblock}[1][]{\begin{neutralframe}[title=#1]\BODY\end{neutralframe}}
 \renewenvironment{alertblock}[1][]{\begin{alertframe}[title=#1]}{\end{alertframe}}
-\setbeamerfont{title}{shape=\scshape}
-\setbeamerfont{title like}{shape=\scshape}
-\setbeamerfont{frametitle}{shape=\scshape}
-\setbeamerfont{section in head/foot}{shape=\scshape,size=\tiny}
-\setbeamerfont{block title}{size=\small,shape=\scshape\bfseries\centering}
-\setbeamertemplate{navigation symbols}{} % hide bottom nav buttons
-\setbeamercolor{lower separation line head}{bg=KAUSTTurqoise} 
-\setbeamercolor{lower separation line foot}{bg=KAUSTTurqoise} 
-\setbeamercolor{normal text}{fg=KAUSTText,bg=white} 
-\setbeamercolor{alerted text}{fg=AlertColor} 
-\setbeamercolor{example text}{fg=KAUSTText} 
-\setbeamercolor{structure}{fg=KAUSTText} 
-\setbeamercolor{section in head/foot}{bg=KAUSTTurqoise}
-\renewcommand{\emph}[1]{{\color{KAUSTTurqoise}{\textit{#1}}}}
+\mode<all>
+
+%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%5
+%\usepackage{ifdraft}
+%\ifdraft{%
 
 %\AtBeginSection[]{
 %	\matableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded]%,hideallsubsections]
 %}
-\newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
-\AtBeginSubsection[]{
-	\matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
-}
-\mode<all>
+
+%% footline
+% \begin{beamercolorbox}[colsep=1.25pt]{lower separation line foot}
+% \end{beamercolorbox}
+
