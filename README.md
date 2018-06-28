@@ -5,6 +5,10 @@
 * This repository contains a LaTeX Beamer theme for professional looking presentations with heavy mathematical content.  
 * Version 1.0
 
+![ExampleSlide1](Template/template-3.png)
+![ExampleSlide2](Template/template-6.png)
+![ExampleSlide3](Template/template-15.png)
+
 ### How do I get set up? ###
 
 * Download file `beamerthememabeamer.sty` into your project directory
@@ -15,3 +19,4 @@
 ### Who do I talk to? ###
 
 * soeren.wolfers@gmail.com
+
