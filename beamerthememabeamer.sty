@@ -13,13 +13,13 @@
 \usepackage{sansmathaccent}
 \pdfmapfile{+sansmathaccent.map}
 \mode<presentation>
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[default,osfigures,scale=0.8]{opensans}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[default,osfigures,scale=0.95]{opensans}
 %\usepackage[default]{gillius}
 \usefonttheme{professionalfonts}
-%%%%%%%%%%%%%%%%%%%%%%% FLEXIBLE PART OF COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%
-%% General definitions
-\definecolor{Charcoal}{HTML}{4D4944}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{Charcoal}{HTML}{494949}
+\definecolor{Gray}{HTML}{555555}
 \definecolor{Olive}{HTML}{927100}
 \definecolor{Orange}{HTML}{FF995D}%{FF8700}
 \definecolor{Wine}{HTML}{A51D00}
@@ -27,17 +27,50 @@
 \definecolor{OxfordBlue}{HTML}{002147}
 \definecolor{LightBlue}{HTML}{5284C4}
 \definecolor{Turqoise}{HTML}{03C2CA}
-\definecolor{Brown}{HTML}{786a54}
-%% CHANGE HERE TO CHANGE THEME
-%% Basically, if main color is dark: make all three below that color; if main color is light: make first two that color and third dark
-\colorlet{mamain}{OxfordBlue}%ToC background; Title slide title; blocks
-\colorlet{mastructuretext}{OxfordBlue}%Used for structural text
-\colorlet{masecondstructuretext}{OxfordBlue}%Used for partsof title slide only a.t.m.
-\colorlet{mafirstemph}{red} % Strongest emphasis
-\colorlet{masecondemph}{blue} % Second strongest emphasis
-\colorlet{mathirdemph}{Olive} % ... 
+\definecolor{DarkTurqoise}{HTML}{0199A0}
+\definecolor{Blue}{HTML}{184DD3}
+\definecolor{LightBrown}{HTML}{786a54}
+\colorlet{DarkBrown}{LightBrown!50!black}
+\colorlet{Brown}{LightBrown!70!black}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% There are three main colors:
+%%   - mamain: Table of contents, blocks
+%%   - mastructuretext: Title page title, Frame titles, page numbers
+%%   - masecondstructuretext: Remainder of title page
+%% Basically, depending on the choice of mamain you should:
+%% if mamain is dark (e.g.: DarkBlue,OxfordBlue,black): 
+%%   - let mastructuretext=(mamain|lighter shade of mamain)
+%%   - let masecondstructuretext=(mamain|Charcoal)
+%% if mamain is normal (e.g.: Blue, Wine):
+%%   - let mastructuretext=mamain
+%%	 - let maseconstructuretext=(black|Charcoal|DarkBrown)
+%% if mamain is light (e.g.: LightBlue,Turqoise,Orange):
+%%   - let mastrucutretext=(mamain|darker shade of mamain)
+%%   - let masecondstructuretext=LightBrown|Brown|Gray
+%% Examples: 
+%%   - OxfordBlue,OxfordBlue,Charcoal
+%%   - (black|Charcoal),Charcoal,Charcoal
+%%   - Blue,Blue,DarkBrown
+%%   - Wine,Wine,DarkBrown
+%%   - LightBlue,(LightBlue|DarkBlue),LightBrown|Brown
+%%   - Turqoise,(Turqoise|DarkTurqoise),(LightBrown|Gray)
+%%   - Orange,Orange,(LightBrown|Brown|Gray)
+%%     (In the last two cases, you MAY use 
+%%			matext=Gray if masecondstructuretext=Gray
+%%       or matext=Brown if ... is Brown shade)
+%%%% Main colors
+\colorlet{mamain}{OxfordBlue}
+\colorlet{mastructuretext}{OxfordBlue}
+\colorlet{masecondstructuretext}{Charcoal}
+%% Highlight colors can be used with \highlight[<index>{<text>}.
+%% They may be finetuned below.
+%% Text color can be finetuned too, but be careful! 
+%%%% Auxiliary colors
 \colorlet{matext}{black}
-\colorlet{maitems}{Charcoal}
+\colorlet{mafirsthighlight}{red} % Strongest highlight
+\colorlet{masecondhighlight}{blue} % Second strongest highlight
+\colorlet{mathirdhighlight}{Olive} % Third strongest highlight
+\colorlet{maitems}{Charcoal} %Itemization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3]{biblatex}
 \usepackage{subfig}
@@ -63,10 +96,10 @@
 \usepackage{listings}
 \lstset{ %
 	language=[LaTeX]TeX,
-	basicstyle=\normalsize\ttfamily\color{black},
+	basicstyle=\small\ttfamily\color{matext},
 	keywordstyle=,
 	numbers=left,
-	numberstyle=\scriptsize\ttfamily\color{black},
+	numberstyle=\scriptsize\ttfamily\color{matext},
 	stepnumber=1,
 	showspaces=false,
 	showstringspaces=false,
@@ -81,13 +114,29 @@
 	xrightmargin=0.5em,
 	backgroundcolor = \color{lightgray!50},breaklines=true
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%% PRIVATE COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xifthen}
+\newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
+\newcommand{\case}[2]{#1 #2} % Dummy, so \renewcommand has something to overwrite...
+\newenvironment{switch}[1]{\renewcommand{\case}{\ifequals{#1}}}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PUBLIC COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\fourthemph}[1]{{\color{mafourthemph}\textit{#1}}}%used for emph in structural text color
-\newcommand{\thirdemph}[1]{{\color{mathirdemph}\textit{#1}}}
-\newcommand{\secondemph}[1]{{\color{masecondemph}\textit{#1}}}
-\newcommand{\firstemph}[1]{{\color{mafirstemph}\textit{#1}}}
-\renewcommand{\emph}[1]{{\color{mafirstemph}\textit{#1}}}
+%\newcommand{\fourthemph}[1]{\bm{{\color{mafourthemph}#1}}}%used for emph in structural text color
+%\newcommand{\thirdemph}[1]{\bm{{\color{mathirdemph}#1}}}
+%\newcommand{\secondemph}[1]{\bm{{\color{masecondemph}#1}}}
+%\newcommand{\firstemph}[1]{\bm{{\color{mafirstemph}#1}}}
+\newcommand{\highlight}[2][0]{%
+	\begin{switch}{#1}%
+		\case{0}{\color{mafirsthighlight}}%
+		\case{1}{\color{masecondhighlight}}%
+		\case{2}{\color{mathirdhighlight}}%
+		\case{3}{\color{mafourthhighlight}}%
+		#2%
+	\end{switch}%
+}
+%\newcommand{\highlight}[2][0]{{\color{mafirsthighlight}#1}}
+\renewcommand{\emph}[1]{\bm{{\color{mastructuretext}#1}}}
 \newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
+\newcommand{\bu}[1]{\bm{\mathrm{#1}}}
 \newcommand\fiteq[1]{%
 	\sbox{\mybox}{$\displaystyle#1$}%
 	\ifdim\wd\mybox>1\textwidth\resizebox{1\textwidth}{!}{\usebox{\mybox}}%
@@ -142,15 +191,21 @@
 	\maketitle
 	\end{frame}
 }
-\newcommand{\summarize}{%
-	{%
-		\color{maitems}
-		\raisebox{0.2em}{%
+\newcommand*{\shifttext}[2]{%
+	\settowidth{\@tempdima}{#2}%
+	\makebox[\@tempdima]{\hspace*{#1}#2}%
+}
+\newcommand{\summarize}{%	
+	\shifttext{-0.2em}{%
+	\scalebox{0.8}[1.1]{%
+		\raisebox{0.12em}{%
 			\tikz{\draw[-{Latex[length=2.5mm, width=1.5mm]}] (0,0)--(0.25,0);}
 		}%
 	}%
+	}%
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\triangle}{\color{maitems}{\shifttext{1.1em}{\summarize}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamerfont{caption}{size=\scriptsize}
 \setbeamertemplate{caption}{\insertcaption}
 \setbeamertemplate{figures}[unnumbered]
@@ -187,8 +242,8 @@
 \setbeamerfont{section in toc shaded}{size=\Large}
 \setbeamerfont{subsection in toc shaded}{size=\normalsize\protect\centering}
 \setbeamerfont{title}{shape=\scshape,size=\large}
-\setbeamerfont{date}{size=\footnotesize}
-\setbeamerfont{author}{size=\footnotesize}
+\setbeamerfont{date}{size=\footnotesize,shape=\scshape}
+\setbeamerfont{author}{size=\footnotesize,shape=\scshape}
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{frametitle}{shape=\scshape}
 \setbeamerfont{section in head/foot}{shape=\scshape,size=\tiny}
@@ -196,26 +251,26 @@
 \usepackage{chngcntr}
 \counterwithin*{footnote}{framenumber}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%FIXED PART OF COLOR SCHEME%%%%%%%%%%%%%%%%%%%%%%%%
-\colorlet{mafourthemph}{mastructuretext}
-\colorlet{red}{mafirstemph}
-\colorlet{blue}{masecondemph}
+\colorlet{mafourthhighlight}{mastructuretext}
+\colorlet{red}{mafirsthighlight}
+\colorlet{blue}{masecondhighlight}
 \setbeamercolor{enumerate item}{fg=matext}
 \setbeamercolor{enumerate subitem}{fg=matext}
 \setbeamercolor{enumerate subsubitem}{fg=matext}
 \setbeamercolor{lower separation line head}{bg=mamain} 
 \setbeamercolor{lower separation line foot}{bg=mamain} 
 \setbeamercolor{normal text}{fg=matext,bg=white} 
-\setbeamercolor{alerted text}{fg=mafirstemph} 
+\setbeamercolor{alerted text}{fg=mafirsthighlight} 
 \setbeamercolor{structure}{fg=mastructuretext} 
 \setbeamercolor{section in head/foot}{bg=mastructuretext}
-\setbeamercolor{title}{fg=mamain}
+\setbeamercolor{title}{fg=mastructuretext}
 \setbeamercolor{author}{fg=masecondstructuretext}
 \setbeamercolor{date}{fg=masecondstructuretext}  
 \setbeamercolor{frametitle}{fg=mastructuretext}
 \setbeamercolor{itemize item}{fg=Charcoal}
 \setbeamercolor{itemize subitem}{fg=Charcoal}
 \setbeamercolor{block title}{fg=white,bg=mamain}
-\setbeamercolor{block body}{fg=mamain!10!black,bg=mamain!10!white}
+\setbeamercolor{block body}{fg=mamain!10!matext,bg=mamain!10!white}
 \setbeamercolor{section in toc}{fg=white}
 \setbeamercolor{subsection in toc}{fg=white}
 \setbeamercolor{section in toc shaded}{fg=mamain!50!white}
@@ -227,14 +282,14 @@
 	\hfill%
 	\begin{beamercolorbox}[wd=0.5\paperwidth,right,dp=2ex]{page number}
 		{%
-	     	\scriptsize \color{mastructuretext}{\insertframenumber}\hspace*{0.2cm}
+	     	\scriptsize \color{mastructuretext}{\insertframenumber}\hspace*{0.17cm}
    		}%/\inserttotalframenumber
 	\end{beamercolorbox}
 	%\fi%
 }
 \setbeamertemplate{headline}{%\leavevmode\ifnum\insertframenumber>1\relax\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}\end{beamercolorbox}\fi
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginSubsection[]{
 	\matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
 }
@@ -247,20 +302,28 @@
 	standard jigsaw,opacityback=0,%sharp corners,
     fonttitle=\scshape\bfseries\footnotesize\centering,
     halign=flush center,
+    colback=white, %background color of the box
+    colframe=matext, %color of frame and title background
+    coltext=matext, %color of body text
+    coltitle=white, %color of title text 
 	left=.5em,right=.5em,top=0ex,bottom=0ex,
 	ams nodisplayskip, ams align*,#1
 }
 \newtcolorbox{neutralframe}[1][]{
 	standard jigsaw,opacityback=0,sharp corners,
 	fonttitle=\scshape\bfseries\small\centering,
+	colback=white, %background color of the box
+	colframe=matext, %color of frame and title background
+	coltext=matext, %color of body text
+	coltitle=white, %color of title text 
 	%halign=flush center,
 	left=.5em,right=.5em,top=0ex,bottom=0ex,#1
 }
 \newtcolorbox{alertframe}[1][]{
 	noparskip,
     colback=white, %background color of the box
-    colframe=mafirstemph, %color of frame and title background
-    coltext=mafirstemph, %color of body text
+    colframe=mafirsthighlight, %color of frame and title background
+    coltext=mafirsthighlight, %color of body text
     coltitle=white, %color of title text 
     fonttitle=\scshape\bfseries\small\centering,
      sharp corners,
@@ -301,7 +364,9 @@
 \NewEnviron{neutralblock}[1][]{\begin{neutralframe}[title={#1}]\BODY\end{neutralframe}}
 \renewenvironment{alertblock}[1][]{\begin{alertframe}[title={#1}]}{\end{alertframe}}
 \mode<all>
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{ifdraft}
 %\ifdraft{%
 
