@@ -32,7 +32,7 @@ The main goal of this project is to provide a theme that does not distract from 
 		\begin{block}{What  was done}
 		\begin{itemize}
 		\item Got rid of navigational or structural baggage
-		\item Got rid of ugly itemizations%
+		\item Got rid of ugly itemizations%This comment is necessary to prevent the subitemize to be separated too much
 		\begin{itemize}
 		\item First level: small squares
 		\item Second level: smaller squares
@@ -58,23 +58,22 @@ The main goal of this project is to provide a theme that does not distract from 
 
 	\item Not using {\color{yellow}standard} {\color{blue}beamer} {\color{red}colors} makes a more professional impression
 \end{itemize}
-
 \begin{block}{Sections without subsections}
-Sections without subsections are currently ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
+	Sections without subsections are currently ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
 \end{block}
 \end{frame}
 
 \section{Example usage}
 \subsection{Standard}
+
 \begin{frame}{Mathematics}
 \begin{theorem}
-There are irrational numbers $r,s$ such that $r^s$ is rational.
+	There are irrational numbers $r,s$ such that $r^s$ is rational.
 \end{theorem}
 \textit{In my opinion, math such as $\sqrt{2}^{\sqrt{2}}$ or 
  $$
  {\sqrt{2}^{\sqrt{2}}}^{\sqrt{2}}=\exp(\sqrt{2}\log\sqrt{2}^{\sqrt{2}})=\exp(\log{2})=2
  $$ looks better when typeset in a math font rather than the usual Beamer font}\hfill\qedsymbol
-
 \end{frame}
 \begin{frame}{Mathematics}
 \begin{itemize}
@@ -88,17 +87,19 @@ There are irrational numbers $r,s$ such that $r^s$ is rational.
 	\end{equationblock}
 \end{itemize}
 \end{frame}
+
 \begin{frame}[fragile]{Alerts and Listings}
 \begin{alertblock}[Alarm, Alarm!]
-To alert, use \texttt{alertblocks}. For code snippets use \texttt{lstlisting}
-\begin{lstlisting}
-\begin{alertblock}[Alerts]
-To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
-...
-\end{alertblock}
-\end{lstlisting}
+	To alert, use \texttt{alertblocks}. For code snippets use \texttt{lstlisting}
+	\begin{lstlisting}
+	\begin{alertblock}[Alerts]
+	To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
+	...
+	\end{alertblock}
+	\end{lstlisting}
 \end{alertblock}
 \end{frame}
+
 \begin{frame}{Citations}
 One test citation \footcite{AdamsFournier2003} is not as good as two \footcite{AlexanderianPetraStadlerEtAl2016}. 
 Zero footnotes\footnote{which can be created using the footnote command} are better than one.
@@ -110,20 +111,20 @@ Footnotes are counted with the same counter as citations. However, there is no p
 	
 \begin{frame}{Figures}
 \begin{figure}
-\scalebox{0.6}{\input{Runge}}
-\caption{Runge's function and polynomial approximations. Observe that figures don't need numbering, just as Theorems.}
+	\scalebox{0.6}{\input{Runge}}
+	\caption{Runge's function and polynomial approximations. Observe that figures don't need numbering, just as Theorems.}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Enumerations}
 \begin{enumerate}
-\item Eins
-\begin{enumerate}
-\item Einseins
-\begin{enumerate}
-\item Einseinseins
-\end{enumerate}
-\end{enumerate}
+	\item Eins
+	\begin{enumerate}
+		\item Einseins
+		\begin{enumerate}
+			\item Einseinseins
+		\end{enumerate}
+	\end{enumerate}
 \end{enumerate}
 \end{frame}
 
@@ -141,39 +142,40 @@ Footnotes are counted with the same counter as citations. However, there is no p
 
 \begin{frame}{Tables}
 \begin{table}[]
-\begin{tabularx}{\linewidth}{l>{\raggedright}X}
-		\toprule
-		\textbf{Option}			& \textbf{Auswirkung} \tabularnewline
-		\midrule
-		\texttt{noflama}		& Falls Sie die Schrift Flama nicht besitzen können Sie mit dieser Option auf die Schrift Arial umschalten. \tabularnewline
-		\texttt{noserifmath}		& Formeln werden ebenfalls serifenlos gesetzt. \tabularnewline
-		\texttt{nosectionpages} & Die Sektionseinleitungsseiten werden ausgeblendet.\tabularnewline
-		\bottomrule
-\end{tabularx}
-\caption{Not everyone understands German}
+	\begin{tabularx}{\linewidth}{l>{\raggedright}X}
+			\toprule
+			\textbf{Option}			& \textbf{Auswirkung} \tabularnewline
+			\midrule
+			\texttt{noflama}		& Falls Sie die Schrift Flama nicht besitzen können Sie mit dieser Option auf die Schrift Arial umschalten. \tabularnewline
+			\texttt{noserifmath}		& Formeln werden ebenfalls serifenlos gesetzt. \tabularnewline
+			\texttt{nosectionpages} & Die Sektionseinleitungsseiten werden ausgeblendet.\tabularnewline
+			\bottomrule
+	\end{tabularx}
+	\caption{Not everyone understands German}
 \end{table}
 \end{frame}
-\subsection{Extra}
-\begin{frame}[fragile]{Additional commands}
-	\begin{itemize}
-		\item Call package  as
-		\begin{lstlisting}
-\usetheme[displaysection]{mabeamer}
-		\end{lstlisting}
-		to display section name on each frame
-		\begin{alertblock}[\bigexclaim]
-			Using \texttt{lstlisting} (as in the gray box above) within an itemize environment requires 
-			 \texttt{\textbackslash begin\{frame\}[fragile]} and requires using no indent in the text (otherwise will get leading whitespace)
-		\end{alertblock}
-		
-		\item For remarks, 	use \texttt{remarkblock}s:
-		\begin{equationblock}[Pythagoras]
-			a^2+b^2=c^2
-		\end{equationblock}
-		\begin{remarkblock}
-			\centering Extension to general triangles are possible, but are beyond scope of this presentation
-		\end{remarkblock}
-	\end{itemize}
 
+\subsection{Extra}
+
+\begin{frame}[fragile]{Additional commands}
+\begin{itemize}
+	\item Call package  as
+	\begin{lstlisting}
+\usetheme[displaysection]{mabeamer}
+	\end{lstlisting}
+	to display section name on each frame
+	\begin{alertblock}[\bigexclaim]
+		Using \texttt{lstlisting} (as in the gray box above) within an itemize environment requires 
+		 \texttt{\textbackslash begin\{frame\}[fragile]} and requires using no indent in the text (otherwise will get leading whitespace)
+	\end{alertblock}
+	
+	\item For remarks, 	use \texttt{remarkblock}s:
+	\begin{equationblock}[Pythagoras]
+		a^2+b^2=c^2
+	\end{equationblock}
+	\begin{remarkblock}
+		\centering Extension to general triangles are possible, but are beyond scope of this presentation
+	\end{remarkblock}
+\end{itemize}
 \end{frame}
 \end{document}
