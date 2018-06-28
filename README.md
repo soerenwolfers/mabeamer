@@ -4,6 +4,8 @@
 
 * This repository contains a LaTeX Beamer theme for professional looking presentations with heavy mathematical content.  
 * Some example slides:
+
+![ExampleSlide1](template/template-0.png)
 ![ExampleSlide1](template/template-3.png)
 ![ExampleSlide2](template/template-6.png)
 ![ExampleSlide3](template/template-15.png)
