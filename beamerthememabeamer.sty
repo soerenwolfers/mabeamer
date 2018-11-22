@@ -67,13 +67,13 @@
 %% Text color can be finetuned too, but be careful! 
 %%%% Auxiliary colors
 \colorlet{matext}{black}
-\colorlet{mafirsthighlight}{red} % Strongest highlight
-\colorlet{masecondhighlight}{blue} % Second strongest highlight
+\colorlet{mafirsthighlight}{red!90!blue} % Strongest highlight
+\colorlet{masecondhighlight}{OxfordBlue!80!blue} % Second strongest highlight
 \colorlet{mathirdhighlight}{Olive} % Third strongest highlight
 \colorlet{maitems}{Charcoal} %Itemization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3]{biblatex}
-\usepackage{subfig}
+%\usepackage{subfig}
 \usepackage{layout}
 \usepackage{xparse}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
@@ -114,6 +114,7 @@
 	xrightmargin=0.5em,
 	backgroundcolor = \color{lightgray!50},breaklines=true
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%% PRIVATE COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xifthen}
 \newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
@@ -133,7 +134,7 @@
 		#2%
 	\end{switch}%
 }
-%\newcommand{\highlight}[2][0]{{\color{mafirsthighlight}#1}}
+\usepackage{bm}
 \renewcommand{\emph}[1]{\bm{{\color{mastructuretext}#1}}}
 \newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
 \newcommand{\bu}[1]{\bm{\mathrm{#1}}}
@@ -153,7 +154,7 @@
 \newcommand{\bigexclaim}{
 	\raisebox{-0.075em}{\scalebox{1.05}{\BigTriangleUp}}\hspace{-0.4em}\llap{\small\textbf{!}}\hspace{0.4em}
 }
-\newcommand{\key}[1]{\textbf{#1:}}
+\newcommand{\key}[1]{\emph{#1:}}
 \newcommand\blfootnote[1]{%
 	\begingroup
 	\renewcommand\thefootnote{}\footnote{#1}%
@@ -167,8 +168,8 @@
 	\begin{frame}[plain,noframenumbering]
 		\ifthenelse{\equal{#1}{}}{%
 			\centering\color{white}Contents%
-		}
-		{%
+		}{%
+		%
 		}
 		\begin{center}
 			\vfill
@@ -244,6 +245,7 @@
 \setbeamerfont{title}{shape=\scshape,size=\large}
 \setbeamerfont{date}{size=\footnotesize,shape=\scshape}
 \setbeamerfont{author}{size=\footnotesize,shape=\scshape}
+\setbeamerfont{institute}{size=\footnotesize,shape=\scshape}
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{frametitle}{shape=\scshape}
 \setbeamerfont{section in head/foot}{shape=\scshape,size=\tiny}
@@ -266,6 +268,7 @@
 \setbeamercolor{title}{fg=mastructuretext}
 \setbeamercolor{author}{fg=masecondstructuretext}
 \setbeamercolor{date}{fg=masecondstructuretext}  
+\setbeamercolor{institute}{fg=masecondstructuretext}  
 \setbeamercolor{frametitle}{fg=mastructuretext}
 \setbeamercolor{itemize item}{fg=Charcoal}
 \setbeamercolor{itemize subitem}{fg=Charcoal}
