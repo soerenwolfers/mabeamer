@@ -167,7 +167,7 @@
 	\setbeamercolor{background canvas}{bg=mamain}
 	\begin{frame}[plain,noframenumbering]
 		\ifthenelse{\equal{#1}{}}{%
-			\centering\color{white}Contents%
+            \centering\color{white}\usebeamerfont{title}{Contents}%
 		}{%
 		%
 		}
@@ -208,7 +208,6 @@
 \renewcommand{\triangle}{\color{maitems}{\shifttext{1.1em}{\summarize}}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamerfont{caption}{size=\scriptsize}
-\setbeamertemplate{caption}{\insertcaption}
 \setbeamertemplate{figures}[unnumbered]
 \setbeamertemplate{theorems}[normal font]
 \setbeamertemplate{frametitle}{
@@ -370,13 +369,9 @@
 %%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\usepackage{ifdraft}
-%\ifdraft{%
-
+%% Remove "Figure" and "Table" in captions:
+%\setbeamertemplate{caption}{\insertcaption}
+%% Show toc at beginning of sections. Instead of this, currently put \nosubsections after sections that dont have subsections
 %\AtBeginSection[]{
 %	\matableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded]%,hideallsubsections]
 %}
-
-%% footline
-% \begin{beamercolorbox}[colsep=1.25pt]{lower separation line foot}
-% \end{beamercolorbox}

@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usetheme{mabeamer}
+\usetheme[displaycomments]{mabeamer}
 \begin{filecontents*}{bibliography.bib}
 @Book{AdamsFournier2003,
 	Title                    = {Sobolev spaces},
@@ -11,7 +11,7 @@
 @Article{AlexanderianPetraStadlerEtAl2016,
 	Title                    = {Mean-variance risk-averse optimal control of systems governed by PDEs with random parameter fields using quadratic approximations},
 	Author                   = {Alexanderian, Alen and Petra, Noemi and Stadler, Georg and Ghattas, Omar},
-	Year = {2016}
+	Year 					 = {2016}
 }
 \end{filecontents*}
 \addbibresource{bibliography}
@@ -32,7 +32,7 @@ The main goal of this project is to provide a theme that does not distract from 
 		\begin{block}{What  was done}
 		\begin{itemize}
 		\item Got rid of navigational or structural baggage
-		\item Got rid of ugly itemizations%This comment is necessary to prevent the subitemize to be separated too much
+		\item Got rid of ugly itemizations%This comment is necessary to prevent the subitemize to be separated too much. It does so by preventing a newline.
 		\begin{itemize}
 		\item First level: small squares
 		\item Second level: smaller squares
@@ -77,14 +77,21 @@ The main goal of this project is to provide a theme that does not distract from 
 \end{frame}
 \begin{frame}{Mathematics}
 \begin{itemize}
-	\item Important equations can be set in \texttt{equationblock} environments:
+	\item Important equations can be put in an \texttt{equationblock}:
 	\begin{equationblock}
 		5^2\approx 4!=\exp\left(\int x^4\exp(-x)\;dx\right)
 	\end{equationblock}	
-	\item Long equations are automatically fitted within equationblocks, and can be named; or they can be linebroken and put into \texttt{equationframe}
+	\item Long equations are auto-fitted and can be named
 	\begin{equationblock}[Rademacher's formula]
 		p(n)=\frac{1}{\pi\sqrt{2}}\sum_{k=1}^{\infty}\sqrt{k}A_{k}(n)\frac{\mathrm{d}}{\mathrm{d}n}\left(\frac{1}{\sqrt{n-\frac{1}{24}}}\sinh\left[\frac{\pi}{k}\sqrt{\frac{2}{3}\left(n-\frac{1}{24}\right)}\right]\right)
 	\end{equationblock}
+	\item Alternatively, \texttt{equationframe} allows for linebreaks but not fitting
+	\begin{equationframe}
+		\Gamma(n+1)&=\Gamma(n)n\\
+		  &=\Gamma(n-1)n(n-1)\\
+		  &\dots\\
+		  &=n!\dots
+	\end{equationframe}
 \end{itemize}
 \end{frame}
 
@@ -112,7 +119,7 @@ Footnotes are counted with the same counter as citations. However, there is no p
 \begin{frame}{Figures}
 \begin{figure}
 	\scalebox{0.6}{\input{runge}}
-	\caption{Runge's function and polynomial approximations. Observe that figures don't need numbering, just as Theorems.}
+	\caption{Runge's function and polynomial approximations. Like theorems, figures don't need numbering.}
 \end{figure}
 \end{frame}
 
@@ -159,7 +166,7 @@ Footnotes are counted with the same counter as citations. However, there is no p
 
 \begin{frame}[fragile]{Additional commands}
 \begin{itemize}
-	\item Call package  as
+	\item Use theme with option
 	\begin{lstlisting}
 \usetheme[displaysection]{mabeamer}
 	\end{lstlisting}
@@ -174,8 +181,18 @@ Footnotes are counted with the same counter as citations. However, there is no p
 		a^2+b^2=c^2
 	\end{equationblock}
 	\begin{remarkblock}
-		\centering Extension to general triangles are possible, but are beyond scope of this presentation
+		\centering Extension to general triangles are possible, but are beyond the scope of this presentation
 	\end{remarkblock}
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Additional commands}
+\begin{itemize}
+	\item Use theme with option
+	\begin{lstlisting}
+	\usetheme[displaycomments]{mabeamer}
+	\end{lstlisting}
+	to display PDF comments that are included with \verb|\pdfcomment{<Your comment>}|
+	\pdfcomment{<Your comment>}
 \end{itemize}
 \end{frame}
 \end{document}
