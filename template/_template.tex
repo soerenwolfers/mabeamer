@@ -16,20 +16,20 @@
 \end{filecontents*}
 \addbibresource{bibliography}
 
-\title{On the mabeamer theme}
+\title{The mabeamer theme}
 \date{\today}
 \author{Sören Wolfers}
 \begin{document}
-\matitle
+\matitle*
 
 \section{Main Goals}
 \nosubsections
 
-\begin{frame}{Making it lighter}
+\begin{frame}{Light slides}
 The main goal of this project is to provide a theme that does not distract from the content.
 \begin{columns}
 	\begin{column}{0.5\textwidth}	
-		\begin{block}{What  was done}
+		\begin{block}{What was done}
 		\begin{itemize}
 		\item Got rid of navigational or structural baggage
 		\item Got rid of ugly itemizations%This comment is necessary to prevent the subitemize to be separated too much. It does so by preventing a newline.
@@ -37,26 +37,27 @@ The main goal of this project is to provide a theme that does not distract from 
 		\item First level: small squares
 		\item Second level: smaller squares
 		\end{itemize}
+		\item Provided pretty blocks: plain, equations, alerts
 		\end{itemize}
 		\end{block}
 	\end{column}
 	\begin{column}{0.5\textwidth}
-		\begin{block}{What  needs to be done}
+		\begin{block}{What needs to be done}
 		\begin{itemize}
-			\item Uniform syntax for various blocks
-			\item Allow line breaks in \texttt{equationblock}s; obviate need for \texttt{equationframe}
 			\item Obviate need for \texttt{\textbackslash nosubsections}  
+			\item Allow line breaks in \texttt{equationblock}s; obviate need for \texttt{equationsblock}
 		\end{itemize}
 		\end{block}
 	\end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Making it modern}
+\begin{frame}{Professional slides}
 \begin{itemize}
-	\item Using a modern font helps forgetting that these are Beamer slides
+	\item Using a non-default font helps forgetting that these are Beamer slides
 
-	\item Not using {\color{yellow}standard} {\color{blue}beamer} {\color{red}colors} makes a more professional impression
+	\item Not using {\color{yellow}typical} {\color{orange}Beamer} {\color{green}colors} protects your eyes
+	
 \end{itemize}
 \begin{block}{Sections without subsections}
 	Sections without subsections are currently ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
@@ -70,10 +71,12 @@ The main goal of this project is to provide a theme that does not distract from 
 \begin{theorem}
 	There are irrational numbers $r,s$ such that $r^s$ is rational.
 \end{theorem}
-\textit{In my opinion, math such as $\sqrt{2}^{\sqrt{2}}$ or 
- $$
- {\sqrt{2}^{\sqrt{2}}}^{\sqrt{2}}=\sqrt{2}^{2}=2
- $$ looks better when typeset in a different font than the normal text font}\hfill\qedsymbol
+\begin{proof}
+	In my opinion, math such as $\sqrt{2}^{\sqrt{2}}$ or 
+	$$
+	{\sqrt{2}^{\sqrt{2}}}^{\sqrt{2}}=\sqrt{2}^{2}=2
+	$$ looks better in serif fonts, even in presentations
+\end{proof}
 \end{frame}
 \begin{frame}{Mathematics}
 \begin{itemize}
@@ -81,39 +84,39 @@ The main goal of this project is to provide a theme that does not distract from 
 	\begin{equationblock}
 		5^2\approx 4!=\exp\left(\int x^4\exp(-x)\;dx\right)
 	\end{equationblock}	
-	\item Long equations are auto-fitted and can be named
+	\item Equations can be named and are automatically fitted
 	\begin{equationblock}[Rademacher's formula]
 		p(n)=\frac{1}{\pi\sqrt{2}}\sum_{k=1}^{\infty}\sqrt{k}A_{k}(n)\frac{\mathrm{d}}{\mathrm{d}n}\left(\frac{1}{\sqrt{n-\frac{1}{24}}}\sinh\left[\frac{\pi}{k}\sqrt{\frac{2}{3}\left(n-\frac{1}{24}\right)}\right]\right)
 	\end{equationblock}
-	\item Alternatively, \texttt{equationframe} allows for linebreaks but not fitting
-	\begin{equationframe}
-		\Gamma(n+1)&=\Gamma(n)n\\
-		  &=\Gamma(n-1)n(n-1)\\
+	\item Alternatively, \texttt{equationsblock} allows for linebreaks but doesn't adjust size
+	\begin{equationsblock}
+		\Gamma(n+1)&=n\Gamma(n)\\
+		  &=n(n-1)\Gamma(n-1)\\
 		  &\dots\\
-		  &=n!\dots
-	\end{equationframe}
+		  &=n!
+	\end{equationsblock}
 \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Alerts and Listings}
-\begin{alertblock}[Alarm, Alarm!]
-	To alert, use \texttt{alertblocks}. For code snippets use \texttt{lstlisting}
-	\begin{lstlisting}
-	\begin{alertblock}[Alerts]
-	To alert use \texttt{alertblocks}, for code snippets use \texttt{lstlisting}
-	...
+\begin{itemize}
+	\item Alerts:
+	\begin{alertblock}[\bigexclaim Alarm, Alarm \bigexclaim]
+		To alert, use \texttt{alertblocks}. For code snippets use \texttt{lstlisting}. When used in itemizations, make sure you don't indent the code snippet, and use \verb|\begin{frame}[fragile]|
 	\end{alertblock}
-	\end{lstlisting}
+\item Listings:
+	\begin{lstlisting}
+\begin{alertblock}[\bigexclaim Alarm, Alarm \bigexclaim]
+	To alert, use \texttt{alertblocks}. For code snippets use \texttt{lstlisting}. When used in itemizations, make sure you don't indent the code snippet, and use \verb|\begin{frame}[fragile]|
 \end{alertblock}
+	\end{lstlisting}
+\end{itemize}
 \end{frame}
 
-\begin{frame}{Citations}
-One test citation \footcite{AdamsFournier2003} is not as good as two \footcite{AlexanderianPetraStadlerEtAl2016}. 
-Zero footnotes\footnote{which can be created using the footnote command} are better than one.
-\end{frame}
+\begin{frame}{Citations and Footnotes}
+Foot citations \footcite{AdamsFournier2003} are better than in-text citations \citep{AlexanderianPetraStadlerEtAl2016}.
 
-\begin{frame}{Footnotes}
-Footnotes are counted with the same counter as citations. However, there is no point in counting footnotes across the presentation\footnote{Right?}
+Footnotes in slides are questionable but can be created using the footnote command \footnote{Check this out} and get the same counter as foot citations.
 \end{frame}
 	
 \begin{frame}{Figures}

@@ -72,7 +72,7 @@
 \colorlet{mathirdhighlight}{Olive} % Third strongest highlight
 \colorlet{maitems}{Charcoal} %Itemization
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3]{biblatex}
+\usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3,natbib=true]{biblatex}
 %\usepackage{subfig}
 \usepackage{layout}
 \usepackage{xparse}
@@ -152,7 +152,7 @@
 	}%
 }
 \newcommand{\bigexclaim}{
-	\raisebox{-0.075em}{\scalebox{1.05}{\BigTriangleUp}}\hspace{-0.4em}\llap{\small\textbf{!}}\hspace{0.4em}
+	\raisebox{-0.2em}{\scalebox{1.2}{\BigTriangleUp}}\hspace{-0.5em}\llap{\footnotesize\textbf{!}}\hspace{0.5em}
 }
 \newcommand{\key}[1]{\emph{#1:}}
 \newcommand\blfootnote[1]{%
@@ -336,6 +336,12 @@
 \usepackage{pbox}
 \NewEnviron{equationblock}[1][]{%
 	\begin{equationframe}[title={#1}]\fiteq{\BODY}\end{equationframe}
+}
+\NewEnviron{equationsblock}[1][]{%
+	\begin{equationframe}[title={#1}]\BODY\end{equationframe}
+}
+\RenewEnviron{proof}[1][]{%
+    \textit  \BODY \hfill \qedsymbol\\
 }
 \usepackage{scalerel}
 \usepackage{varwidth}
