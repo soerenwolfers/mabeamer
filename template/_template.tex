@@ -1,5 +1,5 @@
 \documentclass{beamer}
-\usetheme[displaycomments]{mabeamer}
+\usetheme[comments,runningtoc]{mabeamer}
 \begin{filecontents*}{bibliography.bib}
 @Book{AdamsFournier2003,
 	Title                    = {Sobolev spaces},
@@ -23,7 +23,7 @@
 \matitle*
 
 \section{Main Goals}
-\nosubsections
+%\nosubsections
 
 \begin{frame}{Light slides}
 The main goal of this project is to provide a theme that does not distract from the content.
@@ -44,7 +44,6 @@ The main goal of this project is to provide a theme that does not distract from 
 	\begin{column}{0.5\textwidth}
 		\begin{block}{What needs to be done}
 		\begin{itemize}
-			\item Obviate need for \texttt{\textbackslash nosubsections}  
 			\item Allow line breaks in \texttt{equationblock}s; obviate need for \texttt{equationsblock}
 		\end{itemize}
 		\end{block}
@@ -59,9 +58,6 @@ The main goal of this project is to provide a theme that does not distract from 
 	\item Not using {\color{yellow}typical} {\color{orange}Beamer} {\color{green}colors} protects your eyes
 	
 \end{itemize}
-\begin{block}{Sections without subsections}
-	Sections without subsections are currently ignored in table of contents unless followed by \texttt{\textbackslash nosubsections}
-\end{block}
 \end{frame}
 
 \section{Example usage}
@@ -171,14 +167,10 @@ Footnotes in slides are questionable but can be created using the footnote comma
 \begin{itemize}
 	\item Use theme with option
 	\begin{lstlisting}
-\usetheme[displaysection]{mabeamer}
+\usetheme[sectionhead]{mabeamer}
 	\end{lstlisting}
-	to display section name on each frame
-	\begin{alertblock}[\bigexclaim]
-		Using \texttt{lstlisting} (as in the gray box above) within an itemize environment requires 
-		 \texttt{\textbackslash begin\{frame\}[fragile]} and requires using no indent in the text (otherwise will get leading whitespace)
-	\end{alertblock}
-	
+	to display the current section name on each frame. The analogous option for subsections works too.
+
 	\item For remarks, 	use \texttt{remarkblock}s:
 	\begin{equationblock}[Pythagoras]
 		a^2+b^2=c^2
@@ -192,10 +184,16 @@ Footnotes in slides are questionable but can be created using the footnote comma
 \begin{itemize}
 	\item Use theme with option
 	\begin{lstlisting}
-	\usetheme[displaycomments]{mabeamer}
+\usetheme[comments]{mabeamer}
 	\end{lstlisting}
 	to display PDF comments that are included with \verb|\pdfcomment{<Your comment>}|
 	\pdfcomment{<Your comment>}
+	\item Use \verb|\matitle*| for title page or \verb|\matitle| for table page plus table of contents
+	\item Use theme with option
+	\begin{lstlisting}
+\usetheme[runningtoc]{mabeamer}
+	\end{lstlisting}
+	to include a table of content at the beginning of each section and subsection (as in this template)
 \end{itemize}
 \end{frame}
 \end{document}

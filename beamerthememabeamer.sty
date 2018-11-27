@@ -6,8 +6,10 @@
 \RequirePackage{etoolbox}
 \pgfkeys{
 	/mabeamer/.cd,
-    displaysection/.store in =\mabeamer@dispsec,
-    displaycomments/.store in =\mabeamer@dispcomments
+    sectionhead/.store in =\mabeamer@dispsec,
+    subsectionhead/.store in =\mabeamer@dispssec,
+    runningtoc/.store in =\mabeamer@disptoc,
+    comments/.store in =\mabeamer@dispcomments
 }
 \ProcessPgfPackageOptions{/mabeamer}
 \usepackage{sansmathaccent}
@@ -223,7 +225,10 @@
 		\large\insertframetitle
 	}% middle 
  	\makebox[0pt][r]{%
- 		
+		\ifdef{\mabeamer@dispssec}{%
+			\raisebox{0.5cm}{\footnotesize\insertsubsectionhead}%
+		}{%
+		}
  	}%right
  	\par\medskip
 }
@@ -292,8 +297,27 @@
 \setbeamertemplate{headline}{%\leavevmode\ifnum\insertframenumber>1\relax\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}\end{beamercolorbox}\fi
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcntperchap}
+\RegisterCounters{section}{subsection}
+\newcounter{totalsubsection}
+\setcounter{totalsubsection}{0}
+\usepackage{etoolbox}
+\AtBeginSection[]
+{
+	\ifdef{\mabeamer@disptoc}{%
+        \setcounter{totalsubsection}{\ObtainTrackedValueExp[\value{section}]{section}{subsection}}
+        \ifnum\value{totalsubsection}=0%
+            \matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]
+        \fi%
+    }{%
+    }
+}
 \AtBeginSubsection[]{
-	\matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
+
+	\ifdef{\mabeamer@disptoc}{%
+        \matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
+    }{%
+    }
 }
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
