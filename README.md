@@ -1,20 +1,13 @@
-# README #
+### What's this repository about? ###
 
-### What is this repository for? ###
-
-* This repository contains a LaTeX Beamer theme for professional looking presentations
+* This repository contains a LaTeX Beamer theme for pretty presentations about scientific topics
 * Some example slides:
 
-![ExampleSlide1](template/template-0.png)![ExampleSlide1](template/template-3.png)![ExampleSlide2](template/template-6.png)![ExampleSlide3](template/template-15.png)
+![ExampleSlide1](template/image-0.png)![ExampleSlide2](template/image-4.png)![ExampleSlide3](template/image-5.png)![ExampleSlide4](template/image-6.png)![ExampleSlide5](template/image-9.png)![ExampleSlide6](template/image-14.png)
 
-### How do I get set up? ###
+### How do I use it? ###
 
-* Download file `beamerthememabeamer.sty` from this repository into your project directory
+* Download the file `beamerthememabeamer.sty` from this repository into your project directory
 * Put the command `\usetheme{mabeamer}` in your preamble
-* Check `template/template.tex` for example usage of the theme
+* Check `template/_template.tex` for example usage of the theme
 * If you do not want to copy `beamerthememabeamer.sty` every time you create a new presentation, you may copy it into `<TEXMF>/tex/latex/beamer/base/themes/theme`. The value of `<TEXMF>` depends on your TeX distribution and your operating system, check out http://tex.stackexchange.com/questions/1137/where-do-i-place-my-own-sty-or-cls-files-to-make-them-available-to-all-my-te
-
-### Who do I talk to? ###
-
-* soeren.wolfers@gmail.com
-
