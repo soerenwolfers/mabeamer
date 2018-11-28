@@ -325,6 +325,32 @@
 \usetikzlibrary{arrows.meta}
 \tcbuselibrary{theorems}
 \tcbset{noparskip}
+% Prevent bad itemization, see https://tex.stackexchange.com/questions/462124/why-is-the-spacing-in-this-itemization-so-bad-and-why-can-it-be-fixed-by-adding
+\makeatletter
+\renewcommand{\itemize}[1][]{%
+  \ifhmode\unskip\fi %<<< or \unskip \par
+  \ifblank{#1}{}{\def\beamer@defaultospec{#1}}%
+  \ifnum \@itemdepth >2\relax\@toodeep\else
+    \advance\@itemdepth\@ne
+    \beamer@computepref\@itemdepth% sets \beameritemnestingprefix
+    \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}%
+    \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}% problem
+    \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}%
+    \list
+      {\usebeamertemplate{itemize \beameritemnestingprefix item}}
+      {\def\makelabel##1{%
+          {%
+            \hss\llap{{%
+                \usebeamerfont*{itemize \beameritemnestingprefix item}%
+                \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}}%
+          }%
+        }%
+      }
+  \fi%
+  \beamer@cramped%
+  \raggedright%
+  \beamer@firstlineitemizeunskip%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BLOCKS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{scalerel}
