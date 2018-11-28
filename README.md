@@ -1,6 +1,6 @@
 ### What's this repository about? ###
 
-* This repository contains a LaTeX Beamer theme for pretty presentations about scientific topics
+* This repository contains a LaTeX Beamer theme for pretty presentations on scientific topics
 * Some example slides:
 
 ![ExampleSlide1](template/image-0.png)![ExampleSlide2](template/image-4.png)![ExampleSlide3](template/image-5.png)![ExampleSlide4](template/image-6.png)![ExampleSlide5](template/image-9.png)![ExampleSlide6](template/image-14.png)

@@ -333,6 +333,7 @@
     coltext=matext, %color of body text
     coltitle=white, %color of title text 
 	left=.5em,right=.5em,top=0ex,bottom=0ex,
+    boxrule=0.5pt,
 	ams nodisplayskip, ams align*,#1
 }
 \newtcolorbox{neutralframe}[1][]{
@@ -361,8 +362,14 @@
 \NewEnviron{equationblock}[1][]{%
 	\begin{equationframe}[title={#1}]\fiteq{\BODY}\end{equationframe}
 }
+\NewEnviron{equationblock*}[1][]{%
+	\begin{equationframe}[title={#1},boxrule=0pt,colframe=matext!5!white,coltitle=matext]\fiteq{\BODY}\end{equationframe}
+}
 \NewEnviron{equationsblock}[1][]{%
 	\begin{equationframe}[title={#1}]\BODY\end{equationframe}
+}
+\NewEnviron{equationsblock*}[1][]{%
+	\begin{equationframe}[title={#1},boxrule=0pt,colframe=matext!5!white,coltitle=matext]\BODY\end{equationframe}
 }
 \RenewEnviron{proof}[1][]{%
     \textit  \BODY \hfill \qedsymbol\\

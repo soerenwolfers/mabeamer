@@ -78,13 +78,13 @@ The main goal of this project is to provide a theme that does not distract from 
 \begin{itemize}
 	\item Important equations can be put in an \texttt{equationblock}:
 	\begin{equationblock}
-        5^2\approx 4!=\int_{0}^{\infty} x^4\exp(-x)\;\mathrm{d}x
+        5^2\approx \int_{0}^{\infty} x^4\exp(-x)\;\mathrm{d}x
 	\end{equationblock}	
-	\item Equations can be named and are automatically fitted
+	\item Equations can be named and are automatically fitted:
 	\begin{equationblock}[Rademacher's formula]
 		p(n)=\frac{1}{\pi\sqrt{2}}\sum_{k=1}^{\infty}\sqrt{k}A_{k}(n)\frac{\mathrm{d}}{\mathrm{d}n}\left(\frac{1}{\sqrt{n-\frac{1}{24}}}\sinh\left[\frac{\pi}{k}\sqrt{\frac{2}{3}\left(n-\frac{1}{24}\right)}\right]\right)
 	\end{equationblock}
-	\item Alternatively, \texttt{equationsblock} allows for linebreaks but doesn't adjust size
+	\item Alternatively, \texttt{equationsblock} allows linebreaks but doesn't adjust size:
 	\begin{equationsblock}
 		\Gamma(n+1)&=n\Gamma(n)\\
 		  &=n(n-1)\Gamma(n-1)\\
@@ -174,7 +174,7 @@ The main goal of this project is to provide a theme that does not distract from 
 	to display the current section name on each frame. The analogous option for subsections works too.
 
 	\item For remarks, 	use \texttt{remarkblock}s:
-	\begin{equationblock}[Pythagoras]
+        \begin{equationblock}[Pythagoras (right triangles)]
 		a^2+b^2=c^2
 	\end{equationblock}
 	\begin{remarkblock}
@@ -191,6 +191,7 @@ The main goal of this project is to provide a theme that does not distract from 
 	to display PDF comments that are included with \verb|\pdfcomment{<Your comment>}|
 	\pdfcomment{<Your comment>}
 	\item Use \verb|\matitle*| for title page or \verb|\matitle| for table page plus table of contents
+	\item Use \verb|equationblock*| for fitted equations without a frame
 	\item Use theme with option
 	\begin{lstlisting}
 \usetheme[runningtoc]{mabeamer}
