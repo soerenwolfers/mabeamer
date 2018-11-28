@@ -19,12 +19,11 @@
 \title{The mabeamer theme}
 \date{\today}
 \author{Sören Wolfers}
+
 \begin{document}
 \matitle*
 
 \section{Main Goals}
-%\nosubsections
-
 \begin{frame}{Light slides}
 The main goal of this project is to provide a theme that does not distract from the content.
 \begin{columns}
@@ -116,15 +115,8 @@ The main goal of this project is to provide a theme that does not distract from 
 	\item Footnotes in slides are questionable but can be created using the footnote command \footnote{Check this out} and get the same counter as foot citations.
 \end{itemize}
 \end{frame}
-	
-\begin{frame}{Figures}
-\begin{figure}
-	\scalebox{0.6}{\input{runge}}
-	\caption{Runge's function and polynomial approximations. Like theorems, figures don't need numbering.}
-\end{figure}
-\end{frame}
 
-\begin{frame}{Enumerations}
+\begin{frame}{Enumerations and itemizations}
 \begin{enumerate}
 	\item Eins
 	\begin{enumerate}
@@ -134,9 +126,6 @@ The main goal of this project is to provide a theme that does not distract from 
 		\end{enumerate}
 	\end{enumerate}
 \end{enumerate}
-\end{frame}
-
-\begin{frame}{Itemizations}
 \begin{itemize}
 	\item Eins
 	\begin{itemize}
@@ -147,19 +136,26 @@ The main goal of this project is to provide a theme that does not distract from 
 	\end{itemize}
 \end{itemize}
 \end{frame}
+	
+\begin{frame}{Figures}
+\begin{figure}
+	\scalebox{0.6}{\input{runge}}
+	\caption{Runge's function and polynomial approximations. Like theorems, figures don't need numbering.}
+\end{figure}
+\end{frame}
 
 \begin{frame}{Tables}
 \begin{table}[]
 	\begin{tabularx}{\linewidth}{l>{\raggedright}X}
 			\toprule
-			\textbf{Option}			& \textbf{Auswirkung} \tabularnewline
+			\textbf{Option}			& \textbf{Effect} \tabularnewline
 			\midrule
-			\texttt{noflama}		& Falls Sie die Schrift Flama nicht besitzen können Sie mit dieser Option auf die Schrift Arial umschalten. \tabularnewline
-			\texttt{noserifmath}		& Formeln werden ebenfalls serifenlos gesetzt. \tabularnewline
-			\texttt{nosectionpages} & Die Sektionseinleitungsseiten werden ausgeblendet.\tabularnewline
+			\texttt{sectionhead}		&  Display current section name in frame headers. Analogous option for subsections works too. \tabularnewline
+			\texttt{runningtoc}		& 	Include a table of content at the beginning of each section and subsection (as in this template) \tabularnewline
+			\texttt{comments} & 	Display PDF comments \pdfcomment{<Your comment>} included with \texttt{\textbackslash pdfcomment\{<Your comment>\}}\tabularnewline
 			\bottomrule
 	\end{tabularx}
-	\caption{Not everyone understands German}
+	\caption{Possible options to be inserted in \texttt{\textbackslash usetheme[<option>]\{mabeamer\}}.}
 \end{table}
 \end{frame}
 
@@ -167,12 +163,6 @@ The main goal of this project is to provide a theme that does not distract from 
 
 \begin{frame}[fragile]{Additional commands}
 \begin{itemize}
-	\item Use theme with option
-	\begin{lstlisting}
-\usetheme[sectionhead]{mabeamer}
-	\end{lstlisting}
-	to display the current section name on each frame. The analogous option for subsections works too.
-
 	\item For remarks, 	use \texttt{remarkblock}s:
         \begin{equationblock}[Pythagoras (right triangles)]
 		a^2+b^2=c^2
@@ -180,23 +170,17 @@ The main goal of this project is to provide a theme that does not distract from 
 	\begin{remarkblock}
 		\centering Extension to general triangles are possible, but are beyond the scope of this presentation
 	\end{remarkblock}
-\end{itemize}
-\end{frame}
-\begin{frame}[fragile]{Additional commands}
-\begin{itemize}
-	\item Use theme with option
-	\begin{lstlisting}
-\usetheme[comments]{mabeamer}
-	\end{lstlisting}
-	to display PDF comments that are included with \verb|\pdfcomment{<Your comment>}|
-	\pdfcomment{<Your comment>}
+
+	\item For text blocks, use \texttt{textblock}s:
+	\begin{textblock}
+		I'm a simple man. I see Beamer themes, I star.\\
+		\phantom{}\hfill ---A simple man
+	\end{textblock}
+
 	\item Use \verb|\matitle*| for title page or \verb|\matitle| for table page plus table of contents
+	
 	\item Use \verb|equationblock*| for fitted equations without a frame
-	\item Use theme with option
-	\begin{lstlisting}
-\usetheme[runningtoc]{mabeamer}
-	\end{lstlisting}
-	to include a table of content at the beginning of each section and subsection (as in this template)
 \end{itemize}
 \end{frame}
+
 \end{document}

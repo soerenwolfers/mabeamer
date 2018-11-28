@@ -15,10 +15,12 @@
 \usepackage{sansmathaccent}
 \pdfmapfile{+sansmathaccent.map}
 \mode<presentation>
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[default,osfigures,scale=0.95]{opensans}
 %\usepackage[default]{gillius}
 \usefonttheme{professionalfonts}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{Charcoal}{HTML}{494949}
 \definecolor{Gray}{HTML}{555555}
@@ -34,6 +36,7 @@
 \definecolor{LightBrown}{HTML}{786a54}
 \colorlet{DarkBrown}{LightBrown!50!black}
 \colorlet{Brown}{LightBrown!70!black}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% There are three main colors:
 %%   - mamain: Table of contents, blocks
@@ -73,6 +76,7 @@
 \colorlet{masecondhighlight}{OxfordBlue!80!blue} % Second strongest highlight
 \colorlet{mathirdhighlight}{Olive} % Third strongest highlight
 \colorlet{maitems}{Charcoal} %Itemization
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3,natbib=true]{biblatex}
 %\usepackage{subfig}
@@ -111,7 +115,7 @@
 	framerule=0.5pt,
 	tabsize=4,
 	framexleftmargin=0.5em,
-	framexrightmargin=0.5em,%0.5em
+	framexrightmargin=0.5em,
 	xleftmargin=0.5em,
 	xrightmargin=0.5em,
 	backgroundcolor = \color{lightgray!50},breaklines=true
@@ -122,11 +126,10 @@
 \newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
 \newcommand{\case}[2]{#1 #2} % Dummy, so \renewcommand has something to overwrite...
 \newenvironment{switch}[1]{\renewcommand{\case}{\ifequals{#1}}}{}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PUBLIC COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\newcommand{\fourthemph}[1]{\bm{{\color{mafourthemph}#1}}}%used for emph in structural text color
-%\newcommand{\thirdemph}[1]{\bm{{\color{mathirdemph}#1}}}
-%\newcommand{\secondemph}[1]{\bm{{\color{masecondemph}#1}}}
-%\newcommand{\firstemph}[1]{\bm{{\color{mafirstemph}#1}}}
+\usepackage{twoopt}
+\usepackage{bm}
 \newcommand{\highlight}[2][0]{%
 	\begin{switch}{#1}%
 		\case{0}{\color{mafirsthighlight}}%
@@ -136,14 +139,16 @@
 		#2%
 	\end{switch}%
 }
-\usepackage{bm}
 \renewcommand{\emph}[1]{\bm{{\color{mastructuretext}#1}}}
 \newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
 \newcommand{\bu}[1]{\bm{\mathrm{#1}}}
 \newcommand\fiteq[1]{%
 	\sbox{\mybox}{$\displaystyle#1$}%
-	\ifdim\wd\mybox>1\textwidth\resizebox{1\textwidth}{!}{\usebox{\mybox}}%
-	\else\usebox{\mybox}\fi%
+	\ifdim\wd\mybox>1%
+        \textwidth\resizebox{1\textwidth}{!}{\usebox{\mybox}}%
+	\else%
+        \usebox{\mybox}%
+    \fi%
 }
 \newsavebox{\mybox}
 \newcommand\Wider[2][3em]{%
@@ -163,7 +168,6 @@
 	\addtocounter{footnote}{-1}%
 	\endgroup
 }
-\usepackage{twoopt}
 \newcommandtwoopt{\matableofcontents}[2][][]{%
 	\begingroup
 	\setbeamercolor{background canvas}{bg=mamain}
@@ -171,12 +175,10 @@
 		\ifthenelse{\equal{#1}{}}{%
             \centering\color{white}\usebeamerfont{title}{Contents}%
 		}{%
-		%
 		}
 		\begin{center}
 			\vfill
-			\usebeamerfont{title}{\tableofcontents[%hideallsubsections,
-				#2]}
+			\usebeamerfont{title}{\tableofcontents[#2]}
 			\vfill
 		\end{center}
 	\end{frame}
@@ -184,14 +186,14 @@
 }
 \newcommand{\matitle}{%
 	\begin{frame}[plain,noframenumbering]{}
-	\maketitle
+        \maketitle
 	\end{frame}
 	\matableofcontents
 }
 \usepackage{suffix}
 \WithSuffix\newcommand\matitle*{%
 	\begin{frame}[plain,noframenumbering]{}
-	\maketitle
+        \maketitle
 	\end{frame}
 }
 \newcommand*{\shifttext}[2]{%
@@ -208,6 +210,7 @@
 	}%
 }
 \renewcommand{\triangle}{\color{maitems}{\shifttext{1.1em}{\summarize}}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setbeamerfont{caption}{size=\scriptsize}
 \setbeamertemplate{figures}[unnumbered]
@@ -236,8 +239,8 @@
 \setbeamertemplate{section in toc}[sections]
 \setbeamertemplate{subsection in toc}{\centering \normalsize \inserttocsubsection}
 \setbeamertemplate{itemize item}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
-\setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}%[triangle]
-\setbeamertemplate{itemize subsubitem}{\textendash }
+\setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
+\setbeamertemplate{itemize subsubitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{section in toc shaded}[default][100]
 \setbeamertemplate{subsection in toc shaded}[default][100]
@@ -256,6 +259,7 @@
 \setbeamerfont{block title}{size=\small,shape=\scshape\bfseries\centering}
 \usepackage{chngcntr}
 \counterwithin*{footnote}{framenumber}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%FIXED PART OF COLOR SCHEME%%%%%%%%%%%%%%%%%%%%%%%%
 \colorlet{mafourthhighlight}{mastructuretext}
 \colorlet{red}{mafirsthighlight}
@@ -276,6 +280,7 @@
 \setbeamercolor{frametitle}{fg=mastructuretext}
 \setbeamercolor{itemize item}{fg=Charcoal}
 \setbeamercolor{itemize subitem}{fg=Charcoal}
+\setbeamercolor{itemize subsubitem}{fg=Charcoal}
 \setbeamercolor{block title}{fg=white,bg=mamain}
 \setbeamercolor{block body}{fg=mamain!10!matext,bg=mamain!10!white}
 \setbeamercolor{section in toc}{fg=white}
@@ -284,46 +289,46 @@
 \setbeamercolor{subsection in toc shaded}{fg = mamain!50!white}
 \renewenvironment{exampleblock}[1][]{\DONTUSETHIS}{}
 \setbeamertemplate{footline}{% show slide number on all slides but the first
-	%\ifnum\c@framenumber=1
-	%\else
 	\hfill%
 	\begin{beamercolorbox}[wd=0.5\paperwidth,right,dp=2ex]{page number}
 		{%
 	     	\scriptsize \color{mastructuretext}{\insertframenumber}\hspace*{0.17cm}
    		}%/\inserttotalframenumber
 	\end{beamercolorbox}
-	%\fi%
 }
-\setbeamertemplate{headline}{%\leavevmode\ifnum\insertframenumber>1\relax\begin{beamercolorbox}[wd=\the\paperwidth,ht=0.1cm]{section in head/foot}\end{beamercolorbox}\fi
+\setbeamertemplate{headline}{%
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xcntperchap}
+\usepackage{etoolbox}
+\usepackage{tikz}
 \RegisterCounters{section}{subsection}
 \newcounter{totalsubsection}
 \setcounter{totalsubsection}{0}
-\usepackage{etoolbox}
 \AtBeginSection[]
 {
 	\ifdef{\mabeamer@disptoc}{%
         \setcounter{totalsubsection}{\ObtainTrackedValueExp[\value{section}]{section}{subsection}}
         \ifnum\value{totalsubsection}=0%
-            \matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]
+            \matableofcontents[notitle][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]
         \fi%
     }{%
     }
 }
 \AtBeginSubsection[]{
-
 	\ifdef{\mabeamer@disptoc}{%
-        \matableofcontents[asd][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]%hideothersubsections
+        \matableofcontents[notitle][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]
     }{%
     }
 }
-\usepackage{tikz}
 \usetikzlibrary{arrows.meta}
 \tcbuselibrary{theorems}
 \tcbset{noparskip}
-%%%%%%%%% BLOCKS %%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BLOCKS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{scalerel}
+\usepackage{varwidth}
 \newtcolorbox{equationframe}[1][]{%Can be used for multiline, unlike equationblock
 	standard jigsaw,opacityback=0,%sharp corners,
     fonttitle=\scshape\bfseries\footnotesize\centering,
@@ -336,7 +341,7 @@
     boxrule=0.5pt,
 	ams nodisplayskip, ams align*,#1
 }
-\newtcolorbox{neutralframe}[1][]{
+\newtcolorbox{textframe}[1][]{
 	standard jigsaw,opacityback=0,sharp corners,
 	fonttitle=\scshape\bfseries\small\centering,
 	colback=white, %background color of the box
@@ -344,6 +349,7 @@
 	coltext=matext, %color of body text
 	coltitle=white, %color of title text 
 	%halign=flush center,
+    boxrule=0.5pt,
 	left=.5em,right=.5em,top=0ex,bottom=0ex,#1
 }
 \newtcolorbox{alertframe}[1][]{
@@ -353,7 +359,7 @@
     coltext=mafirsthighlight, %color of body text
     coltitle=white, %color of title text 
     fonttitle=\scshape\bfseries\small\centering,
-     sharp corners,
+    sharp corners,
     #1
 }
 \usepackage{environ}
@@ -374,8 +380,6 @@
 \RenewEnviron{proof}[1][]{%
     \textit  \BODY \hfill \qedsymbol\\
 }
-\usepackage{scalerel}
-\usepackage{varwidth}
 \NewEnviron{remarkblock}[1][]{%
 	\ifthenelse{\equal{#1}{}}{%
 		\makebox[\linewidth]{%
@@ -400,15 +404,11 @@
 		}%
 	}%
 }
-\NewEnviron{neutralblock}[1][]{\begin{neutralframe}[title={#1}]\BODY\end{neutralframe}}
-\renewenvironment{alertblock}[1][]{\begin{alertframe}[title={#1}]}{\end{alertframe}}
+\NewEnviron{textblock}[1][]{%
+    \begin{textframe}[title={#1}]\BODY\end{textframe}%
+}
+\renewenvironment{alertblock}[1][]{%
+    \begin{alertframe}[title={#1}]}{\end{alertframe}%
+}
 \mode<all>
-%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% OLD STUFF %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Remove "Figure" and "Table" in captions:
-%\setbeamertemplate{caption}{\insertcaption}
-%% Show toc at beginning of sections. Instead of this, currently put \nosubsections after sections that dont have subsections
-%\AtBeginSection[]{
-%	\matableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded]%,hideallsubsections]
-%}
