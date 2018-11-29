@@ -1,9 +1,11 @@
 ### What's this repository about? ###
 
-* This repository contains a LaTeX Beamer theme for pretty presentations on scientific topics
+* This repository contains a LaTeX beamer theme for pretty presentations on scientific topics
 * Some example slides:
 
 ![ExampleSlide1](template/image-0.png)![ExampleSlide2](template/image-4.png)![ExampleSlide3](template/image-5.png)![ExampleSlide4](template/image-6.png)![ExampleSlide5](template/image-9.png)![ExampleSlide6](template/image-14.png)
+
+* This repository was inspired by other modern beamer themes: [freshroboto](https://github.com/sunzhida/freshroboto-beamer-theme) [metropolis](https://github.com/matze/mtheme) [bjeldbak](https://github.com/martinbjeldbak/beamertheme-bjeldbak)
 
 ### How do I use it? ###
 
