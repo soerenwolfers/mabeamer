@@ -1,17 +1,10 @@
 \documentclass{beamer}
-\usetheme[comments,runningtoc]{mabeamer}
+\usetheme[runningtoc]{mabeamer}
 \begin{filecontents*}{bibliography.bib}
 @Book{AdamsFournier2003,
 	Title                    = {Sobolev spaces},
 	Author                   = {Adams, Robert A and Fournier, John JF},
-	Publisher                = {Academic press},
 	Year                     = {2003},
-	Volume                   = {140},
-}
-@Article{AlexanderianPetraStadlerEtAl2016,
-	Title                    = {Mean-variance risk-averse optimal control of systems governed by PDEs with random parameter fields using quadratic approximations},
-	Author                   = {Alexanderian, Alen and Petra, Noemi and Stadler, Georg and Ghattas, Omar},
-	Year 					 = {2016}
 }
 \end{filecontents*}
 \addbibresource{bibliography}
@@ -25,23 +18,23 @@
 
 \section{Main Goals}
 \begin{frame}{Light slides}
-The main goal of this project is to provide a theme that does not distract from the content.
+Light slides do not distract from important content.
 \begin{columns}
 	\begin{column}{0.5\textwidth}	
-		\begin{block}{What was done}
+		\begin{block}[Done]
 		\begin{itemize}
-		\item Got rid of navigational or structural baggage
-		\item Got rid of ugly itemizations	
+		\item Reduce navigational or structural baggage
+		\item Get rid of ugly itemizations	
 		\begin{itemize}
 		\item First level: small squares
 		\item Second level: smaller squares
 		\end{itemize}
-		\item Provided pretty blocks: plain, equations, alerts
+		\item Provide pretty blocks: plain, equations, alerts, ...
 		\end{itemize}
 		\end{block}
 	\end{column}
 	\begin{column}{0.5\textwidth}
-		\begin{block}{What needs to be done}
+		\begin{block}[To Do]
 		\begin{itemize}
 			\item Allow line breaks in \texttt{equationblock}s; obviate need for \texttt{equationsblock}
 		\end{itemize}
@@ -52,9 +45,9 @@ The main goal of this project is to provide a theme that does not distract from 
 
 \begin{frame}{Professional slides}
 \begin{itemize}
-	\item Using a non-default font helps forgetting that these are Beamer slides
+	\item Fancy font lets you forget that these are Beamer slides
 
-	\item Not using {\color{yellow}typical} {\color{orange}Beamer} {\color{green}colors} protects your eyes
+	\item Not {\color{purple}using} {\color{orange}playful} {\color{green}colors} {\color{red} protects} {\color{yellow}your} {\color{blue}eyes}
 	
 \end{itemize}
 \end{frame}
@@ -64,7 +57,7 @@ The main goal of this project is to provide a theme that does not distract from 
 
 \begin{frame}{Mathematics}
 \begin{theorem}
-	There are irrational numbers $r,s$ such that $r^s$ is rational.
+	There are irrational numbers $r$ and $s$ such that $r^s$ is rational.
 \end{theorem}
 \begin{proof}
 	In my opinion, math such as $\sqrt{2}^{\sqrt{2}}$ or 
@@ -110,29 +103,38 @@ The main goal of this project is to provide a theme that does not distract from 
 
 \begin{frame}{Citations and Footnotes}
 \begin{itemize}
-	\item Foot citations \footcite{AdamsFournier2003} are better than in-text citations \citep{AlexanderianPetraStadlerEtAl2016}.
+	\item Foot citations \footcite{AdamsFournier2003} are more slick than in-text citations \citep{AdamsFournier2003}.
 
-	\item Footnotes in slides are questionable but can be created using the footnote command \footnote{Check this out} and get the same counter as foot citations.
+	\item Footnotes in slides are questionable but can be created using the footnote command \footnote{Check this out} and use the same counter as foot citations.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Enumerations and itemizations}
 \begin{enumerate}
-	\item Eins
+	\item One
 	\begin{enumerate}
-		\item Einseins
+		\item Oneone
 		\begin{enumerate}
-			\item Einseinseins
+			\item Oneoneone
 		\end{enumerate}
 	\end{enumerate}
 \end{enumerate}
 \begin{itemize}
-	\item Eins
+	\item Square
 	\begin{itemize}
-		\item Einseins
+		\item Squaresquaresquare
 		\begin{itemize}
-			\item Einseinseins
+			\item Squaresquaresquare
 		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\begin{itemize}
+	\item[\summarize] Nice
+	\begin{itemize}
+	\item[\summarize] and clean
+	\begin{itemize}
+		\item[\summarize] and simple
+	\end{itemize}
 	\end{itemize}
 \end{itemize}
 \end{frame}
@@ -144,18 +146,19 @@ The main goal of this project is to provide a theme that does not distract from 
 \end{figure}
 \end{frame}
 
-\begin{frame}{Tables}
+\begin{frame}{Theme options (and tables)}
 \begin{table}[]
 	\begin{tabularx}{\linewidth}{l>{\raggedright}X}
 			\toprule
 			\textbf{Option}			& \textbf{Effect} \tabularnewline
 			\midrule
-			\texttt{sectionhead}		&  Display current section name in frame headers. Analogous option for subsections works too. \tabularnewline
-			\texttt{runningtoc}		& 	Include a table of content at the beginning of each section and subsection (as in this template) \tabularnewline
-			\texttt{comments} & 	Display PDF comments \pdfcomment{<Your comment>} included with \texttt{\textbackslash pdfcomment\{<Your comment>\}}\tabularnewline
+			\texttt{sectionhead}		&  Show current section name in frame headers.  \tabularnewline
+			\texttt{subsectionhead}  & Show current subsection name in frame headers. \tabularnewline
+			\texttt{runningtoc}		& 	Include a table of contents at the beginning of each section and subsection (as on the next slide). \tabularnewline
+			\texttt{nocomments} & 	Don't show PDF comments \pdfcomment{<Your comment>} included with \texttt{\textbackslash pdfcomment\{<Your comment>\}}. \tabularnewline
 			\bottomrule
 	\end{tabularx}
-	\caption{Possible options to be inserted in \texttt{\textbackslash usetheme[<option>]\{mabeamer\}}.}
+	\caption{Options that can be inserted in \texttt{\textbackslash usetheme[<option>]\{mabeamer\}}.}
 \end{table}
 \end{frame}
 
@@ -163,23 +166,25 @@ The main goal of this project is to provide a theme that does not distract from 
 
 \begin{frame}[fragile]{Additional commands}
 \begin{itemize}
-	\item For remarks, 	use \texttt{remarkblock}s:
-        \begin{equationblock}[Pythagoras (right triangles)]
-		a^2+b^2=c^2
+	\item For remarks, 	use \texttt{remarkblock}:
+    \begin{equationblock}[Pythagoras (right triangles)]
+	\highlight{a^2}+\highlight[1]{b^2}=\highlight[2]{c^2}
 	\end{equationblock}
 	\begin{remarkblock}
-		\centering Extension to general triangles are possible, but are beyond the scope of this presentation
+		\centering Extension to general triangles is possible but beyond the scope of this presentation
 	\end{remarkblock}
 
-	\item For text blocks, use \texttt{textblock}s:
-	\begin{textblock}
+	\item For framed blocks, use \texttt{frameblock}:
+	\begin{frameblock}
 		I'm a simple man. I see Beamer themes, I star.\\
 		\phantom{}\hfill ---A simple man
-	\end{textblock}
+	\end{frameblock}
 
 	\item Use \verb|\matitle*| for title page or \verb|\matitle| for table page plus table of contents
 	
 	\item Use \verb|equationblock*| for fitted equations without a frame
+	\item \emph{Emphasize text} with \verb|\emph|
+	\item Highlight math like $\highlight{a^2}$, $\highlight[1]{b^2}$ and $\highlight[2]{c^2}$ with \verb|\highlight<index>|
 \end{itemize}
 \end{frame}
 

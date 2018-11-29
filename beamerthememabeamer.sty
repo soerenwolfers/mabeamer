@@ -3,25 +3,25 @@
 \usepackage[USenglish]{babel}
 \usepackage{pgfkeys}
 \usepackage{pgfopts}
+\usepackage{sansmathaccent}
 \RequirePackage{etoolbox}
 \pgfkeys{
 	/mabeamer/.cd,
     sectionhead/.store in =\mabeamer@dispsec,
     subsectionhead/.store in =\mabeamer@dispssec,
     runningtoc/.store in =\mabeamer@disptoc,
-    comments/.store in =\mabeamer@dispcomments
+    nocomments/.store in =\mabeamer@nodispcomments
 }
 \ProcessPgfPackageOptions{/mabeamer}
-\usepackage{sansmathaccent}
 \pdfmapfile{+sansmathaccent.map}
 \mode<presentation>
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[default,osfigures,scale=0.95]{opensans}
 %\usepackage[default]{gillius}
 \usefonttheme{professionalfonts}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{Charcoal}{HTML}{494949}
 \definecolor{Gray}{HTML}{555555}
 \definecolor{Olive}{HTML}{927100}
@@ -37,12 +37,12 @@
 \colorlet{DarkBrown}{LightBrown!50!black}
 \colorlet{Brown}{LightBrown!70!black}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% There are three main colors:
 %%   - mamain: Table of contents, blocks
 %%   - mastructuretext: Title page title, Frame titles, page numbers
 %%   - masecondstructuretext: Remainder of title page
-%% Basically, depending on the choice of mamain you should:
+%% As a rough guide, depending on the choice of mamain you should:
 %% if mamain is dark (e.g.: DarkBlue,OxfordBlue,black): 
 %%   - let mastructuretext=(mamain|lighter shade of mamain)
 %%   - let masecondstructuretext=(mamain|Charcoal)
@@ -63,43 +63,43 @@
 %%     (In the last two cases, you MAY use 
 %%			matext=Gray if masecondstructuretext=Gray
 %%       or matext=Brown if ... is Brown shade)
-%%%% Main colors
+%%%% Main colors %%%%
 \colorlet{mamain}{OxfordBlue}
 \colorlet{mastructuretext}{OxfordBlue}
 \colorlet{masecondstructuretext}{Charcoal}
-%% Highlight colors can be used with \highlight[<index>{<text>}.
+%%%% Auxiliary colors %%%%
+%% Highlight colors can be used with \highlight[<index>]{<text>}.
 %% They may be finetuned below.
 %% Text color can be finetuned too, but be careful! 
-%%%% Auxiliary colors
 \colorlet{matext}{black}
 \colorlet{mafirsthighlight}{red!90!blue} % Strongest highlight
-\colorlet{masecondhighlight}{OxfordBlue!80!blue} % Second strongest highlight
-\colorlet{mathirdhighlight}{Olive} % Third strongest highlight
+\colorlet{masecondhighlight}{OxfordBlue!60!blue} % Second strongest highlight
+\colorlet{mathirdhighlight}{Olive!90!black} % Third strongest highlight
 \colorlet{maitems}{Charcoal} %Itemization
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3,natbib=true]{biblatex}
-%\usepackage{subfig}
 \usepackage{layout}
 \usepackage{xparse}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{epstopdf}
 \usepackage[many]{tcolorbox}
-\tcbuselibrary{breakable,skins}
 \usepackage{listings}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{calc}
 \usepackage{tabularx,ragged2e}
 \usepackage{booktabs}
-\ifdef{\mabeamer@dispcomments}{%
-	\usepackage[draft]{pdfcomment}
-}{%
+\ifdef{\mabeamer@nodispcomments}{%
 	\usepackage[final]{pdfcomment}
+}{%
+	\usepackage[draft]{pdfcomment}
 }
 \usepackage{calc}
 \usepackage[geometry]{ifsym}
 \usepackage{listings}
+\usepackage{xifthen}
+\tcbuselibrary{breakable,skins}
 \lstset{ %
 	language=[LaTeX]TeX,
 	basicstyle=\small\ttfamily\color{matext},
@@ -118,18 +118,16 @@
 	framexrightmargin=0.5em,
 	xleftmargin=0.5em,
 	xrightmargin=0.5em,
-	backgroundcolor = \color{lightgray!50},breaklines=true
+	backgroundcolor=\color{lightgray!50},breaklines=true
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% PRIVATE COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{xifthen}
 \newcommand{\ifequals}[3]{\ifthenelse{\equal{#1}{#2}}{#3}{}}
 \newcommand{\case}[2]{#1 #2} % Dummy, so \renewcommand has something to overwrite...
 \newenvironment{switch}[1]{\renewcommand{\case}{\ifequals{#1}}}{}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PUBLIC COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% EXPORT COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{twoopt}
 \usepackage{bm}
+\usepackage{suffix}
 \newcommand{\highlight}[2][0]{%
 	\begin{switch}{#1}%
 		\case{0}{\color{mafirsthighlight}}%
@@ -158,8 +156,8 @@
 		\end{minipage}%
 	}%
 }
-\newcommand{\bigexclaim}{
-	\raisebox{-0.2em}{\scalebox{1.2}{\BigTriangleUp}}\hspace{-0.5em}\llap{\footnotesize\textbf{!}}\hspace{0.5em}
+\newcommand{\bigexclaim}{%
+    \raisebox{0.1em}{\raisebox{-0.2em}{\BigTriangleUp}\hspace{-0.45em}\llap{\tiny \textbf{!}}\hspace{0.45em}}
 }
 \newcommand{\key}[1]{\emph{#1:}}
 \newcommand\blfootnote[1]{%
@@ -190,7 +188,6 @@
 	\end{frame}
 	\matableofcontents
 }
-\usepackage{suffix}
 \WithSuffix\newcommand\matitle*{%
 	\begin{frame}[plain,noframenumbering]{}
         \maketitle
@@ -201,7 +198,7 @@
 	\makebox[\@tempdima]{\hspace*{#1}#2}%
 }
 \newcommand{\summarize}{%	
-	\shifttext{-0.2em}{%
+	\shifttext{0.5em}{%
 	\scalebox{0.8}[1.1]{%
 		\raisebox{0.12em}{%
 			\tikz{\draw[-{Latex[length=2.5mm, width=1.5mm]}] (0,0)--(0.25,0);}
@@ -212,9 +209,9 @@
 \renewcommand{\triangle}{\color{maitems}{\shifttext{1.1em}{\summarize}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{chngcntr}
 \setbeamerfont{caption}{size=\scriptsize}
 \setbeamertemplate{figures}[unnumbered]
-\setbeamertemplate{theorems}[normal font]
 \setbeamertemplate{frametitle}{
 	\vspace{-0.1cm}
 	\par\medskip\noindent
@@ -257,10 +254,9 @@
 \setbeamerfont{frametitle}{shape=\scshape}
 \setbeamerfont{section in head/foot}{shape=\scshape,size=\tiny}
 \setbeamerfont{block title}{size=\small,shape=\scshape\bfseries\centering}
-\usepackage{chngcntr}
 \counterwithin*{footnote}{framenumber}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%FIXED PART OF COLOR SCHEME%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% FIXED PART OF COLOR SCHEME %%%%%%%%%%%%%%%%%%%%%%%%%%
 \colorlet{mafourthhighlight}{mastructuretext}
 \colorlet{red}{mafirsthighlight}
 \colorlet{blue}{masecondhighlight}
@@ -299,7 +295,7 @@
 \setbeamertemplate{headline}{%
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xcntperchap}
 \usepackage{etoolbox}
 \usepackage{tikz}
@@ -323,7 +319,6 @@
     }
 }
 \usetikzlibrary{arrows.meta}
-\tcbuselibrary{theorems}
 \tcbset{noparskip}
 % Prevent bad itemization, see https://tex.stackexchange.com/questions/462124/why-is-the-spacing-in-this-itemization-so-bad-and-why-can-it-be-fixed-by-adding
 \makeatletter
@@ -355,29 +350,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BLOCKS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{scalerel}
 \usepackage{varwidth}
-\newtcolorbox{equationframe}[1][]{%Can be used for multiline, unlike equationblock
-	standard jigsaw,opacityback=0,%sharp corners,
-    fonttitle=\scshape\bfseries\footnotesize\centering,
-    halign=flush center,
-    colback=white, %background color of the box
-    colframe=matext, %color of frame and title background
-    coltext=matext, %color of body text
-    coltitle=white, %color of title text 
-	left=.5em,right=.5em,top=0ex,bottom=0ex,
-    boxrule=0.5pt,
-	ams nodisplayskip, ams align*,#1
-}
-\newtcolorbox{textframe}[1][]{
-	standard jigsaw,opacityback=0,sharp corners,
-	fonttitle=\scshape\bfseries\small\centering,
-	colback=white, %background color of the box
-	colframe=matext, %color of frame and title background
-	coltext=matext, %color of body text
-	coltitle=white, %color of title text 
-	%halign=flush center,
-    boxrule=0.5pt,
-	left=.5em,right=.5em,top=0ex,bottom=0ex,#1
-}
+\usepackage{environ}
+\usepackage{ifthen}
+\usepackage{pbox}
 \newtcolorbox{alertframe}[1][]{
 	noparskip,
     colback=white, %background color of the box
@@ -385,23 +360,80 @@
     coltext=mafirsthighlight, %color of body text
     coltitle=white, %color of title text 
     fonttitle=\scshape\bfseries\small\centering,
+	left=.5em,right=.5em,top=0.5ex,bottom=0.5ex,
     sharp corners,
     #1
 }
-\usepackage{environ}
-\usepackage{ifthen}
-\usepackage{pbox}
+\newtcolorbox{simpleframe}[1][]{%
+	standard jigsaw,
+    opacityback=0,
+    fonttitle=\scshape\bfseries\footnotesize\centering,
+    colback=white, %background color of the box
+    colframe=matext, %color of frame and title background
+    coltext=matext, %color of body text
+    coltitle=white, %color of title text 
+	left=.5em,right=.5em,top=0ex,bottom=0ex,
+    boxrule=0.5pt,
+    sharp corners,
+    #1
+}
+\newtcolorbox{normalframe}[1][]{%
+	standard jigsaw,
+    fonttitle=\scshape\bfseries\centering,
+    colback=mamain!10!white, %background color of the box
+    colframe=mamain, %color of frame and title background
+    coltext=mamain!10!matext, %color of body text
+    coltitle=white, %color of title text 
+	left=.5em,right=.5em,top=.5ex,bottom=.5ex,
+    boxrule=0pt,
+    sharp corners,
+    #1
+}
+\renewenvironment{theorem}[1][]{%
+	\ifthenelse{\equal{#1}{}}{%
+        \begin{normalframe}[title={Theorem}]%
+    }{%
+        \begin{normalframe}[title={Theorem (#1)}]%
+    }
+}{%
+    \end{normalframe}
+}
+\renewenvironment{block}[1][]{%
+    \begin{normalframe}[title={#1}]%
+}{%
+    \end{normalframe}%
+}
+\renewenvironment{alertblock}[1][]{%
+    \begin{alertframe}[title={#1}]%
+}{%
+    \end{alertframe}%
+}
 \NewEnviron{equationblock}[1][]{%
-	\begin{equationframe}[title={#1}]\fiteq{\BODY}\end{equationframe}
+	\begin{simpleframe}[ams nodisplayskip, ams align*, halign=flush center,title={#1}]%
+    \fiteq{\BODY}%
+    \end{simpleframe}%
 }
 \NewEnviron{equationblock*}[1][]{%
-	\begin{equationframe}[title={#1},boxrule=0pt,colframe=matext!5!white,coltitle=matext]\fiteq{\BODY}\end{equationframe}
+	\begin{simpleframe}[ams nodisplayskip, ams align*, halign=flush center, title={#1},%
+        boxrule=0pt,colframe=matext!5!white,coltitle=matext]%
+    \fiteq{\BODY}%
+    \end{simpleframe}%
 }
 \NewEnviron{equationsblock}[1][]{%
-	\begin{equationframe}[title={#1}]\BODY\end{equationframe}
+	\begin{simpleframe}[ams nodisplayskip, ams align*, halign=flush center,title={#1}]%
+    \BODY%
+    \end{simpleframe}%
 }
 \NewEnviron{equationsblock*}[1][]{%
-	\begin{equationframe}[title={#1},boxrule=0pt,colframe=matext!5!white,coltitle=matext]\BODY\end{equationframe}
+	\begin{simpleframe}[ams nodisplayskip, ams align*, halign=flush center, title={#1},%
+        boxrule=0pt,colframe=matext!5!white,coltitle=matext]%
+    \BODY%
+    \end{simpleframe}%
+}
+\NewEnviron{frameblock}[1][]{%
+    \begin{simpleframe}[title={#1}]%
+    \BODY%
+    \end{simpleframe}%
 }
 \RenewEnviron{proof}[1][]{%
     \textit  \BODY \hfill \qedsymbol\\
@@ -429,12 +461,6 @@
 			}%
 		}%
 	}%
-}
-\NewEnviron{textblock}[1][]{%
-    \begin{textframe}[title={#1}]\BODY\end{textframe}%
-}
-\renewenvironment{alertblock}[1][]{%
-    \begin{alertframe}[title={#1}]}{\end{alertframe}%
 }
 \mode<all>
 
