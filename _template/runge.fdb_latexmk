@@ -1,0 +1,11 @@
+# Fdb version 3
+["pdflatex"] 1544455340 "runge.tex" "runge.pdf" "runge" 1544455340
+  "/etc/texmf/web2c/texmf.cnf" 1526290560 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1520210507 32485 c64754543d8ac501bea6e75e209ea521 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1541152684 4128320 38ef68de4f197b4161c5698a929725f8 ""
+  "runge.aux" 1544455145 8 a94a2480d3289e625eea47cd1b285758 ""
+  "runge.tex" 1542372749 31797 dec7760b822577fdd1f0091b11b2b5b1 ""
+  (generated)
+  "runge.log"
+  "runge.pdf"

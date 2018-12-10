@@ -232,9 +232,14 @@
  	}%right
  	\par\medskip
 }
-\useoutertheme[shadow]{miniframes}
-\setbeamertemplate{section in toc}[sections]
-\setbeamertemplate{subsection in toc}{\centering \normalsize \inserttocsubsection}
+%\useoutertheme[shadow]{miniframes}
+%\setbeamertemplate{section in toc}[sections]
+\setbeamertemplate{subsection in toc}{%
+\ifnum\inserttocsubsectionnumber>1
+    $|$\hspace{0.5em}%
+\fi
+\inserttocsubsection%
+}
 \setbeamertemplate{itemize item}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{itemize subsubitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
@@ -242,10 +247,10 @@
 \setbeamertemplate{section in toc shaded}[default][100]
 \setbeamertemplate{subsection in toc shaded}[default][100]
 \setbeamertemplate{navigation symbols}{} % hide bottom nav buttons
-\setbeamerfont{section in toc}{size=\Large}
-\setbeamerfont{subsection in toc}{size=\normalsize\protect\centering}
-\setbeamerfont{section in toc shaded}{size=\Large}
-\setbeamerfont{subsection in toc shaded}{size=\normalsize\protect\centering}
+%\setbeamerfont{section in toc}{size=\Large}
+\setbeamerfont{subsection in toc}{size=\footnotesize\itshape\protect\centering}
+%\setbeamerfont{section in toc shaded}{size=\Large}
+\setbeamerfont{subsection in toc shaded}{size=\footnotesize\itshape\protect\centering}
 \setbeamerfont{title}{shape=\scshape,size=\large}
 \setbeamerfont{date}{size=\footnotesize,shape=\scshape}
 \setbeamerfont{author}{size=\footnotesize,shape=\scshape}
