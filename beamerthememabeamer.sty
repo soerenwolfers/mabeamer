@@ -7,25 +7,40 @@
 \RequirePackage{etoolbox}
 \pgfkeys{
 	/mabeamer/.cd,
-    sectionhead/.store in =\mabeamer@dispsec,
-    subsectionhead/.store in =\mabeamer@dispssec,
+    header/.default = both,
+    header/.store in =\mabeamer@dispheader,
+    header = none,
+    runningtoc/.default = preview,
     runningtoc/.store in =\mabeamer@disptoc,
-    nocomments/.store in =\mabeamer@nodispcomments
+    runningtoc = none,
+    nocomments/.store in =\mabeamer@nodispcomments,
 }
 \ProcessPgfPackageOptions{/mabeamer}
+\ifdefstring{\mabeamer@dispheader}{both}{%
+	\newcommand{\mabeamer@dispsec}{}%
+	\newcommand{\mabeamer@dispssec}{}%
+}{%
+	\ifdefstring{\mabeamer@dispheader}{section}{%
+		\newcommand{\mabeamer@dispsec}{}%
+	}{%
+		\ifdefstring{\mabeamer@dispheader}{subsection}{%
+			\newcommand{\mabeamer@dispssec}{}%
+		}{%
+		}%
+	}%
+}
 \pdfmapfile{+sansmathaccent.map}
 \mode<presentation>
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[default,osfigures,scale=0.95]{opensans}
-%\usepackage[default]{gillius}
+\usepackage[default,scale=0.95]{opensans}
 \usefonttheme{professionalfonts}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COLORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{Charcoal}{HTML}{494949}
 \definecolor{Gray}{HTML}{555555}
 \definecolor{Olive}{HTML}{927100}
-\definecolor{Orange}{HTML}{FF995D}%{FF8700}
+\definecolor{Orange}{HTML}{FF995D}
 \definecolor{Wine}{HTML}{A51D00}
 \definecolor{DarkBlue}{HTML}{012D5F}
 \definecolor{OxfordBlue}{HTML}{002147}
@@ -75,7 +90,7 @@
 \colorlet{mafirsthighlight}{red!90!blue} % Strongest highlight
 \colorlet{masecondhighlight}{OxfordBlue!60!blue} % Second strongest highlight
 \colorlet{mathirdhighlight}{Olive!90!black} % Third strongest highlight
-\colorlet{maitems}{Charcoal} %Itemization
+\colorlet{maitems}{Charcoal!70!white} %Itemization
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% GENERAL PACKAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[backend=bibtex, style=authoryear-comp,maxcitenames=3,natbib=true]{biblatex}
@@ -138,7 +153,6 @@
 	\end{switch}%
 }
 \renewcommand{\emph}[1]{\bm{{\color{mastructuretext}#1}}}
-\newcommand{\nosubsections}{\subsection{\vspace{-1em}}}
 \newcommand{\bu}[1]{\bm{\mathrm{#1}}}
 \newcommand\fiteq[1]{%
 	\sbox{\mybox}{$\displaystyle#1$}%
@@ -157,64 +171,72 @@
 	}%
 }
 \newcommand{\bigexclaim}{%
-    \raisebox{0.1em}{\raisebox{-0.2em}{\BigTriangleUp}\hspace{-0.45em}\llap{\tiny \textbf{!}}\hspace{0.45em}}
+    \raisebox{0.1em}{\raisebox{-0.2em}{\BigTriangleUp}\hspace{-0.45em}\llap{\tiny \textbf{!}}\hspace{0.45em}} %keep space at EOL
 }
 \newcommand{\key}[1]{\emph{#1:}}
 \newcommand\blfootnote[1]{%
-	\begingroup
+	\begingroup%
 	\renewcommand\thefootnote{}\footnote{#1}%
 	\addtocounter{footnote}{-1}%
-	\endgroup
-}
-\newcommandtwoopt{\matableofcontents}[2][][]{%
-	\begingroup
-	\setbeamercolor{background canvas}{bg=mamain}
-	\begin{frame}[plain,noframenumbering]
-		\ifthenelse{\equal{#1}{}}{%
-            \centering\color{white}\usebeamerfont{title}{Contents}%
-		}{%
-		}
-		\begin{center}
-			\vfill
-			\usebeamerfont{title}{\tableofcontents[#2]}
-			\vfill
-		\end{center}
-	\end{frame}
 	\endgroup%
 }
-\newcommand{\matitle}{%
-	\begin{frame}[plain,noframenumbering]{}
-        \maketitle
-	\end{frame}
-	\matableofcontents
+\let\mabeamerstandardtocbackup\tableofcontents
+\newcommand{\blocktoc}{\renewcommand\mabeamerblocknexttoc{1}}
+\newcommand{\mabeamerblocknexttoc}{0}
+\newcommand{\mabeamermanualtocshown}{0}
+\renewcommandtwoopt{\tableofcontents}[2][][]{%
+	\if\mabeamerblocknexttoc0%
+	\begingroup%
+	\setbeamercolor{background canvas}{bg=mamain}%
+	\begin{frame}[plain,noframenumbering]%
+		\begin{center}%
+			\vfill%
+            \usebeamerfont{title}{\mabeamerstandardtocbackup[#1]}%
+			\vfill%
+		\end{center}%
+	\end{frame}%
+	\endgroup%
+	\ifthenelse{\equal{#2}{}}{%
+		\renewcommand{\mabeamermanualtocshown}{1}%        
+	}{%
+	}%
+	\else%
+		\renewcommand{\mabeamerblocknexttoc}{0}
+	\fi%
 }
-\WithSuffix\newcommand\matitle*{%
-	\begin{frame}[plain,noframenumbering]{}
-        \maketitle
-	\end{frame}
+\renewcommand{\maketitle}{%
+    \ifbeamer@inframe\titlepage\else%
+        \begin{frame}[plain,noframenumbering]{}%
+            \titlepage%
+        \end{frame}%
+    \fi
 }
 \newcommand*{\shifttext}[2]{%
 	\settowidth{\@tempdima}{#2}%
 	\makebox[\@tempdima]{\hspace*{#1}#2}%
 }
-\newcommand{\summarize}{%	
-	\shifttext{0.5em}{%
-	\scalebox{0.8}[1.1]{%
-		\raisebox{0.12em}{%
-			\tikz{\draw[-{Latex[length=2.5mm, width=1.5mm]}] (0,0)--(0.25,0);}
-		}%
-	}%
-	}%
+\newcommand{\summarize}{%
+    {\color{maitems}
+	    \shifttext{0.75em}{%
+	        \scalebox{0.6}[1]{%
+	            \raisebox{0.15em}{%
+	                \tikz{\draw[-{Latex[length=2.5mm, width=1.5mm]}] (0,0)--(0.25,0);}%
+	            }%
+	        }%
+	    }%
+	}
 }
-\renewcommand{\triangle}{\color{maitems}{\shifttext{1.1em}{\summarize}}}
+\newcommand{\imply}{%
+\shifttext{-0.75em}{\summarize\hspace{-0.1em}}%
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEAMER OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{chngcntr}
 \setbeamerfont{caption}{size=\scriptsize}
 \setbeamertemplate{figures}[unnumbered]
-\setbeamertemplate{frametitle}{
-	\vspace{-0.1cm}
-	\par\medskip\noindent
+\setbeamertemplate{frametitle}{%
+	\vspace{-0.1cm}%
+	\par\medskip\noindent%
 	\makebox[0pt][l]{%
 		\ifdef{\mabeamer@dispsec}{%
 			\raisebox{0.5cm}{\footnotesize\insertsectionhead}%
@@ -222,34 +244,45 @@
 		}
 	}% Up left, small
 	\makebox[\textwidth][c]{%
-		\large\insertframetitle
+		\large\insertframetitle%
 	}% middle 
  	\makebox[0pt][r]{%
 		\ifdef{\mabeamer@dispssec}{%
 			\raisebox{0.5cm}{\footnotesize\insertsubsectionhead}%
 		}{%
-		}
+		}%
  	}%right
- 	\par\medskip
+ 	\par\medskip%
 }
-%\useoutertheme[shadow]{miniframes}
-%\setbeamertemplate{section in toc}[sections]
+%\useoutertheme[shadow]{miniframes} NEEDED? SOMETIMES GET MISSING NUMBER
+\colorlet{shaded}{white!50!mamain}
 \setbeamertemplate{subsection in toc}{%
-\ifnum\inserttocsubsectionnumber>1
-    $|$\hspace{0.5em}%
-\fi
-\inserttocsubsection%
+	\ifdefstring{\mabeamer@disptoc}{current}{%
+		\vspace{-1em}%
+		\begin{center}
+			\textcolor{white}{\inserttocsubsection}
+		\end{center}%
+		\vspace{-1em}%
+	}{%
+	    \ifnum\inserttocsubsectionnumber>1%
+	    	\textcolor{shaded}{$|$}\hspace{0.5em}%
+	    \fi%
+	    \textcolor{white}{\inserttocsubsection}%
+	}%
+}
+\setbeamertemplate{subsection in toc shaded}{%
+    \ifnum\inserttocsubsectionnumber>1%
+    	\textcolor{shaded}{$|$}\hspace{0.5em}%
+    \fi%
+    \textcolor{shaded}{\inserttocsubsection}%
 }
 \setbeamertemplate{itemize item}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{itemize subsubitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{section in toc shaded}[default][100]
-\setbeamertemplate{subsection in toc shaded}[default][100]
 \setbeamertemplate{navigation symbols}{} % hide bottom nav buttons
-%\setbeamerfont{section in toc}{size=\Large}
 \setbeamerfont{subsection in toc}{size=\footnotesize\itshape\protect\centering}
-%\setbeamerfont{section in toc shaded}{size=\Large}
 \setbeamerfont{subsection in toc shaded}{size=\footnotesize\itshape\protect\centering}
 \setbeamerfont{title}{shape=\scshape,size=\large}
 \setbeamerfont{date}{size=\footnotesize,shape=\scshape}
@@ -279,9 +312,9 @@
 \setbeamercolor{date}{fg=masecondstructuretext}  
 \setbeamercolor{institute}{fg=masecondstructuretext}  
 \setbeamercolor{frametitle}{fg=mastructuretext}
-\setbeamercolor{itemize item}{fg=Charcoal}
-\setbeamercolor{itemize subitem}{fg=Charcoal}
-\setbeamercolor{itemize subsubitem}{fg=Charcoal}
+\setbeamercolor{itemize item}{fg=maitems}
+\setbeamercolor{itemize subitem}{fg=maitems}
+\setbeamercolor{itemize subsubitem}{fg=maitems}
 \setbeamercolor{block title}{fg=white,bg=mamain}
 \setbeamercolor{block body}{fg=mamain!10!matext,bg=mamain!10!white}
 \setbeamercolor{section in toc}{fg=white}
@@ -289,16 +322,11 @@
 \setbeamercolor{section in toc shaded}{fg=mamain!50!white}
 \setbeamercolor{subsection in toc shaded}{fg = mamain!50!white}
 \renewenvironment{exampleblock}[1][]{\DONTUSETHIS}{}
-\setbeamertemplate{footline}{% show slide number on all slides but the first
+\setbeamertemplate{footline}{%
 	\hfill%
-	\begin{beamercolorbox}[wd=0.5\paperwidth,right,dp=2ex]{page number}
-		{%
-	     	\scriptsize \color{mastructuretext}{\insertframenumber}\hspace*{0.17cm}
-   		}%/\inserttotalframenumber
-	\end{beamercolorbox}
+	\footnotesize\color{mastructuretext}\raisebox{0.5em}{\insertframenumber}\hspace*{0.17cm}%/\inserttotalframenumber
 }
-\setbeamertemplate{headline}{%
-}
+\setbeamertemplate{headline}{}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONFIGURATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{xcntperchap}
@@ -309,24 +337,36 @@
 \setcounter{totalsubsection}{0}
 \AtBeginSection[]
 {
-	\ifdef{\mabeamer@disptoc}{%
-        \setcounter{totalsubsection}{\ObtainTrackedValueExp[\value{section}]{section}{subsection}}
-        \ifnum\value{totalsubsection}=0%
-            \matableofcontents[notitle][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]
-        \fi%
-    }{%
-    }
+	\ifdefstring{\mabeamer@disptoc}{none}{%
+	}{%
+        %\setcounter{totalsubsection}{\ObtainTrackedValueExp[\value{section}]{section}{subsection}}
+        %\ifnum\value{totalsubsection}=0%	
+        \if\mabeamermanualtocshown0%
+        	\ifdefstring{\mabeamer@disptoc}{current}{%
+        		\tableofcontents[sectionstyle=show/hide,hideallsubsections][auto]%	
+        	}{%
+        		\tableofcontents[sectionstyle=show/shaded,hideallsubsections][auto]%
+    		}%
+       	\fi%
+    }%
 }
 \AtBeginSubsection[]{
-	\ifdef{\mabeamer@disptoc}{%
-        \matableofcontents[notitle][currentsection,currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded]
-    }{%
-    }
+	\ifdefstring{\mabeamer@disptoc}{none}{%
+	}{%
+		\ifdefstring{\mabeamer@disptoc}{current}{%
+    		\tableofcontents[currentsection,currentsubsection,sectionstyle=show/hide,subsectionstyle=show/hide/hide][auto]%
+    	}{%
+    		\tableofcontents[currentsection,currentsubsection,sectionstyle=show/hide,subsectionstyle=show/shaded/hide][auto]%
+		}%
+    }%
+}
+\BeforeBeginEnvironment{frame}{%
+	\renewcommand{\mabeamermanualtocshown}{0}%
 }
 \usetikzlibrary{arrows.meta}
 \tcbset{noparskip}
-% Prevent bad itemization, see https://tex.stackexchange.com/questions/462124/why-is-the-spacing-in-this-itemization-so-bad-and-why-can-it-be-fixed-by-adding
-\makeatletter
+%%%% Prevent bad itemization %%%% 
+%% https://tex.stackexchange.com/questions/462124/why-is-the-spacing-in-this-itemization-so-bad-and-why-can-it-be-fixed-by-adding
 \renewcommand{\itemize}[1][]{%
   \ifhmode\unskip\fi %<<< or \unskip \par
   \ifblank{#1}{}{\def\beamer@defaultospec{#1}}%
@@ -373,10 +413,10 @@
 	standard jigsaw,
     opacityback=0,
     fonttitle=\scshape\bfseries\footnotesize\centering,
-    colback=white, %background color of the box
-    colframe=matext, %color of frame and title background
-    coltext=matext, %color of body text
-    coltitle=white, %color of title text 
+    colback=white,
+    colframe=matext,
+    coltext=matext, 
+    coltitle=white, 
 	left=.5em,right=.5em,top=0ex,bottom=0ex,
     boxrule=0.5pt,
     sharp corners,
@@ -385,10 +425,10 @@
 \newtcolorbox{normalframe}[1][]{%
 	standard jigsaw,
     fonttitle=\scshape\bfseries\centering,
-    colback=mamain!10!white, %background color of the box
-    colframe=mamain, %color of frame and title background
-    coltext=mamain!10!matext, %color of body text
-    coltitle=white, %color of title text 
+    colback=mamain!10!white, 
+    colframe=mamain, 
+    coltext=mamain!10!matext, 
+    coltitle=white, 
 	left=.5em,right=.5em,top=.5ex,bottom=.5ex,
     boxrule=0pt,
     sharp corners,

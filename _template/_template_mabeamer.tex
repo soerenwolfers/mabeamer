@@ -3,9 +3,9 @@
 \usetheme[runningtoc]{mabeamer}
 \begin{filecontents}{_bib_mabeamer.bib}
 @Book{AdamsFournier2003,
-	Title                    = {Sobolev spaces},
-	Author                   = {Adams, Robert A and Fournier, John JF},
-	Year                     = {2003},
+	Title    = {Sobolev spaces},
+	Author   = {Adams, Robert A and Fournier, John JF},
+	Year     = {2003},
 }
 \end{filecontents}
 \addbibresource{_bib_mabeamer}
@@ -15,7 +15,7 @@
 \author{Sören Wolfers}
 
 \begin{document}
-\matitle*
+\maketitle
 
 \section{Main Goals}
 \begin{frame}{Light slides}
@@ -37,7 +37,8 @@ Light slides do not distract from important content.
 	\begin{column}{0.5\textwidth}
 		\begin{block}[To Do]
 		\begin{itemize}
-			\item Allow line breaks in \texttt{equationblock}s; obviate need for \texttt{equationsblock}
+			\item Allow line breaks in \texttt{equationblock}\\
+			 (\imply Obviate need for \texttt{equationsblock})
 		\end{itemize}
 		\end{block}
 	\end{column}
@@ -106,7 +107,7 @@ Light slides do not distract from important content.
 \begin{itemize}
 	\item Foot citations \footcite{AdamsFournier2003} are more slick than in-text citations \citep{AdamsFournier2003}.
 
-	\item Footnotes in slides are questionable but can be created using the footnote command \footnote{Check this out} and use the same counter as foot citations.
+	\item Footnotes in slides are questionable but can be created using the footnote command\footnote{Check this out} and use the same counter as foot citations.
 \end{itemize}
 \end{frame}
 
@@ -123,7 +124,7 @@ Light slides do not distract from important content.
 \begin{itemize}
 	\item Square
 	\begin{itemize}
-		\item Squaresquaresquare
+		\item Squaresquare
 		\begin{itemize}
 			\item Squaresquaresquare
 		\end{itemize}
@@ -142,24 +143,23 @@ Light slides do not distract from important content.
 	
 \begin{frame}{Figures}
 \begin{figure}
-	\scalebox{0.6}{\input{runge}}
+	\scalebox{0.6}{\input{_runge}}
 	\caption{Runge's function and polynomial approximations. Like theorems, figures don't need numbering.}
 \end{figure}
 \end{frame}
 
 \begin{frame}{Theme options (and tables)}
 \begin{table}[]
-	\begin{tabularx}{\linewidth}{l>{\raggedright}X}
+	\begin{tabularx}{\linewidth}{l>{\raggedright}XX}
 			\toprule
-			\textbf{Option}			& \textbf{Effect} \tabularnewline
+			\textbf{Option}			& \textbf{Controls} & \textbf{Values} \tabularnewline
 			\midrule
-			\texttt{sectionhead}		&  Show current section name in frame headers.  \tabularnewline
-			\texttt{subsectionhead}  & Show current subsection name in frame headers. \tabularnewline
-			\texttt{runningtoc}		& 	Include a table of contents at the beginning of each section and subsection (as on the next slide). \tabularnewline
-			\texttt{nocomments} & 	Don't show PDF comments \pdfcomment{<Your comment>} included with \texttt{\textbackslash pdfcomment\{<Your comment>\}}. \tabularnewline
+			\verb|header|		&  Frame headers & \verb|none|,\verb|section|, \verb|subsection|,\verb|both| \tabularnewline
+			\verb|runningtoc|		& 	Table of contents at the beginning of sections and subsections & \verb|none|,\verb|preview|, \verb|current| \tabularnewline
+			\verb|nocomments| & 	Don't show PDF comments \pdfcomment{<Your comment>} included with \verb|\pdfcomment{<Comment>}| & \verb|<notpassed>|, \verb|<passed>|  \tabularnewline
 			\bottomrule
 	\end{tabularx}
-	\caption{Options that can be inserted in \texttt{\textbackslash usetheme[<option>]\{mabeamer\}}.}
+	\caption{Options that can be inserted in \texttt{\textbackslash usetheme[<option>]\{mabeamer\}}. Default value listed first.}
 \end{table}
 \end{frame}
 
@@ -181,8 +181,6 @@ Light slides do not distract from important content.
 		\phantom{}\hfill ---A simple man
 	\end{frameblock}
 
-	\item Use \verb|\matitle*| for title page or \verb|\matitle| for table page plus table of contents
-	
 	\item Use \verb|equationblock*| for fitted equations without a frame
 	\item \emph{Emphasize text} with \verb|\emph|
 	\item Highlight math like $\highlight{a^2}$, $\highlight[1]{b^2}$ and $\highlight[2]{c^2}$ with \verb|\highlight<index>|
