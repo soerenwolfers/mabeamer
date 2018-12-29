@@ -103,6 +103,7 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{calc}
+\usepackage{csquotes} % babel wants this
 \usepackage{tabularx,ragged2e}
 \usepackage{booktabs}
 \ifdef{\mabeamer@nodispcomments}{%
@@ -260,21 +261,21 @@
 	\ifdefstring{\mabeamer@disptoc}{current}{%
 		\vspace{-1em}%
 		\begin{center}
-			\textcolor{white}{\inserttocsubsection}
+            \textcolor{white}{\inserttocsubsection}
 		\end{center}%
 		\vspace{-1em}%
 	}{%
 	    \ifnum\inserttocsubsectionnumber>1%
 	    	\textcolor{shaded}{$|$}\hspace{0.5em}%
 	    \fi%
-	    \textcolor{white}{\inserttocsubsection}%
+        \textcolor{white}{\mbox{\inserttocsubsection}}%
 	}%
 }
 \setbeamertemplate{subsection in toc shaded}{%
     \ifnum\inserttocsubsectionnumber>1%
     	\textcolor{shaded}{$|$}\hspace{0.5em}%
     \fi%
-    \textcolor{shaded}{\inserttocsubsection}%
+    \textcolor{shaded}{\mbox{\inserttocsubsection}}%
 }
 \setbeamertemplate{itemize item}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
 \setbeamertemplate{itemize subitem}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}
@@ -282,8 +283,10 @@
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{section in toc shaded}[default][100]
 \setbeamertemplate{navigation symbols}{} % hide bottom nav buttons
-\setbeamerfont{subsection in toc}{size=\footnotesize\itshape\protect\centering}
-\setbeamerfont{subsection in toc shaded}{size=\footnotesize\itshape\protect\centering}
+\setbeamerfont{subsection in toc}{size=\footnotesize\itshape\scshape\protect\centering}
+\setbeamerfont{subsection in toc shaded}{size=\footnotesize\itshape\scshape\protect\centering}
+\setbeamerfont{section in toc}{shape=\scshape}
+\setbeamerfont{section in toc shaded}{shape=\scshape}
 \setbeamerfont{title}{shape=\scshape,size=\large}
 \setbeamerfont{date}{size=\footnotesize,shape=\scshape}
 \setbeamerfont{author}{size=\footnotesize,shape=\scshape}
@@ -335,8 +338,7 @@
 \RegisterCounters{section}{subsection}
 \newcounter{totalsubsection}
 \setcounter{totalsubsection}{0}
-\AtBeginSection[]
-{
+\AtBeginSection[]{%
 	\ifdefstring{\mabeamer@disptoc}{none}{%
 	}{%
         %\setcounter{totalsubsection}{\ObtainTrackedValueExp[\value{section}]{section}{subsection}}
@@ -350,7 +352,7 @@
        	\fi%
     }%
 }
-\AtBeginSubsection[]{
+\AtBeginSubsection[]{%
 	\ifdefstring{\mabeamer@disptoc}{none}{%
 	}{%
 		\ifdefstring{\mabeamer@disptoc}{current}{%

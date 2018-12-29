@@ -5,7 +5,7 @@
 
 ![ExampleSlide1](_template/_image-0.png)![ExampleSlide2](_template/_image-2.png)![ExampleSlide3](_template/_image-5.png)![ExampleSlide4](_template/_image-6.png)![ExampleSlide5](_template/_image-7.png)![ExampleSlide6](_template/_image-10.png)
 
-* This repository was inspired by other modern beamer themes: [freshroboto](https://github.com/sunzhida/freshroboto-beamer-theme) [metropolis](https://github.com/matze/mtheme) [bjeldbak](https://github.com/martinbjeldbak/beamertheme-bjeldbak)
+* This repository was inspired by other modern beamer themes: [freshroboto](https://github.com/sunzhida/freshroboto-beamer-theme) [metropolis](https://github.com/matze/mtheme) [HSRM](https://github.com/benjamin-weiss/hsrmbeamertheme) [bjeldbak](https://github.com/martinbjeldbak/beamertheme-bjeldbak)
 
 ### How do I use it? ###
 
